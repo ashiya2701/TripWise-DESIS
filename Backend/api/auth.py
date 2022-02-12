@@ -10,20 +10,26 @@ auth = Blueprint('auth', __name__)
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        pass
-        # email = request.form.get('email')
-        # password = request.form.get('password')
+        
+        data= request.data
+        data_dict= json.loads(data.decode('utf-8'))
 
-        # user = User.query.filter_by(email=email).first()
-        # if user:
-        #     if check_password_hash(user.password, password):
-        #         flash('Logged in successfully!', category='success')
-        #         login_user(user, remember=True)
-        #         return redirect(url_for('views.home'))
-        #     else:
-        #         flash('Incorrect password, try again.', category='error')
-        # else:
-        #     flash('Email does not exist.', category='error')
+        email = data_dict['email']
+        password= data_dict['password']
+
+        user = User.query.filter_by(email=email).first()
+        if user:
+            print('user exists')
+            if check_password_hash(user.password, password):
+                flash('Logged in successfully!', category='success')
+                login_user(user, remember=True)
+                print('logged in')
+            else:
+                flash('Incorrect password, try again.', category='error')
+                print('incorrect creds')
+        else:
+            print('incorrect email')
+            flash('Email does not exist.', category='error')
 
     # return render_template("login.html", user=current_user)
 
@@ -35,8 +41,12 @@ def login():
 @auth.route('/logout')
 @login_required
 def logout():
+    print("inside logout")
     logout_user()
-    return redirect(url_for('auth.login'))
+    # return redirect(url_for('auth.login'))
+    response = Response(status=200)
+    # need to set JSON like {'username': 'febin'}
+    return response
 
 
 @auth.route('/sign-up', methods=['GET', 'POST'])
