@@ -1,7 +1,8 @@
-from flask import Flask
+from app import app
+import views
+from app import db
+import views
 
-app = Flask(__name__)
 
-@app.route("/")
-def hello_world():
-    return "<p>Hello, World!</p>"
+if __name__=='main':
+    app.run()
