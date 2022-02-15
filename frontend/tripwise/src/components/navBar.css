@@ -1,0 +1,25 @@
+body {
+    background-color: #ffffff;
+    color: white;
+    padding: 0px 0px;
+    font-family: Arial;
+    text-align: center;
+}
+
+.navbar {
+    margin: 0;
+    overflow: hidden;
+    background-color: rgb(3, 105, 145);
+}
+
+.link {
+    display: block;
+    font-size: 20px;
+    color: white;
+    float: left;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 10px;
+    background-color: rgb(94, 7, 33);
+}
