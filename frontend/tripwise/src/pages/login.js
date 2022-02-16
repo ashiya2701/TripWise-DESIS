@@ -2,6 +2,9 @@ import React from "react";
 import { useState } from "react";
 import ReactDOM from "react-dom";
 import './style.css';
+const submitLogin=()=>{
+	
+}
 const Login = () => {
 	const [userRegistration,setuserRegistration]=useState({
 		username:"",
@@ -38,7 +41,9 @@ return (
 	<input className='formvalue' type="password" name="password"  id="password"
 	value={userRegistration.password} onChange={HandleInput}/>
 	</div>
-	<button className='button' type='submit'>Submit</button>
+	<button className='button' onClick={()=>{
+		submitLogin()
+	}}>Submit</button>
 	</form>
 	</div>
 );
