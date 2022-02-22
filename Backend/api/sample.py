@@ -20,12 +20,23 @@ def sampleCheckData():
         ['Hyderabad', 'Telangana','India' ],
         ['Banglore','Karnataka', 'India' ],
         ['Kolkata', 'WB', 'India']
-    ]
+    #     ['Chandigarh','Punjab','India'],
+    #     ['Surat','Gujrat','India'],
+    #     ['Ahemdabad','Gujrat','India'],
+    #     ['Patna','Bihar','India']
+     ]
 
     for entry in data:
+        city=City.query.filter_by(name=entry[0]).first()
+        
+      #  print("line 28: ",city)
+        if city:
+            print("Exist")
+            continue
         new_city= City(name=entry[0], state= entry[1], country=entry[2])
-        print(new_city)
+       # print(new_city)
         db.session.add(new_city)
+        
 
     db.session.commit()
 
