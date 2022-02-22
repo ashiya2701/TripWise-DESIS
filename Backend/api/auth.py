@@ -89,7 +89,7 @@ def sign_up():
         #     flash('Password must be at least 7 characters.', category='error')
         else:
             print("creating new user")
-            new_user = User(id= '1' , email=email,name= name, phone_number= phone_number, username=username, password=generate_password_hash(
+            new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=generate_password_hash(
                 password, method='sha256'))
             db.session.add(new_user)
             db.session.commit()

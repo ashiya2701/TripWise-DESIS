@@ -19,6 +19,9 @@ def create_app():
     from auth import auth
     app.register_blueprint(auth, url_prefix='/')
 
+    from sample import sample
+    app.register_blueprint(sample, url_prefix='/')
+
     create_database(app)
 
     login_manager = LoginManager()

@@ -9,11 +9,6 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
-
-
-class Post(db.Model):
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(150))
     
 class City(db.Model):
        id=db.Column(db.Integer, primary_key=True)

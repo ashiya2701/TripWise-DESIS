@@ -1,6 +1,7 @@
 from sqlalchemy import insert
 from models import City
 from models import Flight
+
 stmt = (
     insert(City).
     values(id=1,name='Delhi', state='UT',country='India')
@@ -21,5 +22,3 @@ stmt4 = (
     insert(City).
     values(id=5,name='Kolkata', state='',country='India')
 )
-
-
