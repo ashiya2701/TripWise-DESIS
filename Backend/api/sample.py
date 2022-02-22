@@ -11,36 +11,21 @@ sample = Blueprint('sample', __name__)
 @sample.route('/sample_check_data', methods=['GET', 'POST'])
 def sampleCheckData():
 
-    # result= City.query.order_by(City.id).all()
-    # print("result: ", result)
+    result= City.query.order_by(City.id).all()
+    print("result: ", result)
 
-    # new_city = City(name='Delhi', state='UT',country='India')
-    # db.session.add(new_city)
-    # db.session.commit()
+    data=[
+        ['Delhi','UT', 'India'],
+        ['Mumbai','Maharastra','India' ],
+        ['Hyderabad', 'Telangana','India' ],
+        ['Banglore','Karnataka', 'India' ],
+        ['Kolkata', 'WB', 'India']
+    ]
 
-    # print("added Delhi")
-
-    stmt = (
-        insert(City).
-        values(name='Delhi', state='UT',country='India')
-    )
-
-    stmt1 = (
-        insert(City).
-        values(name='Mumbai', state='Maharastra',country='India')
-    )
-    stmt2 = (
-        insert(City).
-        values(name='Hyderabad', state='Telangana',country='India')
-    )
-    stmt3 = (
-        insert(City).
-        values(name='Banglore', state='Karnataka',country='India')
-    )
-    stmt4 = (
-        insert(City).
-        values(name='Kolkata', state='',country='India')
-    )
+    for entry in data:
+        new_city= City(name=entry[0], state= entry[1], country=entry[2])
+        print(new_city)
+        db.session.add(new_city)
 
     db.session.commit()
 
