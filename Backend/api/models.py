@@ -9,7 +9,7 @@ class User(db.Model, UserMixin):
     email = db.Column(db.String(150), unique=True)
     password = db.Column(db.String(150))
     phone_number = db.Column(db.String(10))
-    
+
 class City(db.Model):
        id=db.Column(db.Integer, primary_key=True)
        name=db.Column(db.String(150))
@@ -18,7 +18,7 @@ class City(db.Model):
 
 class Flight(db.Model):
         id=db.Column(db.Integer, primary_key=True)
-        To=db.Column(db.Integer, ForeignKey(City.id))
+        src=db.Column(db.Integer, ForeignKey(City.id))
         dest= db.Column(db.Integer, ForeignKey(City.id))
         dur= db.Column(db.Float) 
         price =db.Column(db.Integer)
