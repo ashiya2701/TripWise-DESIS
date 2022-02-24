@@ -43,6 +43,6 @@ class Hotels(db.Model):
         price =db.Column(db.Integer)
         distancefromairport =db.Column(db.Integer) 
         distancefromrailways =db.Column(db.Integer) 
-        timefromairport =db.Column(db.Integer) 
-        timefromrailways =db.Column(db.Integer) 
+        timefromairport =db.Column(db.Float) 
+        timefromrailways =db.Column(db.Float) 
                 
