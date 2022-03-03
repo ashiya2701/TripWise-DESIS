@@ -3,6 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_login import LoginManager
 from config import Config
+from flask_cors import CORS
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -12,6 +13,7 @@ def create_app():
     app = Flask(__name__)
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config.from_object(Config)
+    CORS(app)
     db.init_app(app)
 
     from models import User
