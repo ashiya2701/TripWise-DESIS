@@ -26,7 +26,7 @@ def delete_token(token = ""):
 
 def create_token(username = ""):
     username = username
-    access_token= username+ str(random.randint(0,10))
+    access_token= username+ str(random.randint(0,100000))
     token = Token.query.filter_by(User=username).first()
     if token:
         print("exists")
