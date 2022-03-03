@@ -9,14 +9,34 @@ import random
 
 auth = Blueprint('auth', __name__)
 
+def delete_token(token = ""):
+    access_token= token
+    token = Token.query.filter_by(token=token).first()
+    msg= {
+        deleted: "false"
+    }
+    if token:
+        db.session.delete(token)
+        db.session.commit()
+        msg["deleted"]= "true"
+    else:
+        pass
+    return msg
+        
+
 def create_token(username = ""):
-    username = username_input
-    access_token= username+ random.rand_int(0,10)
+    username = username
+    access_token= username+ str(random.randint(0,10))
     token = Token.query.filter_by(User=username).first()
     if token:
+        print("exists")
         access_token= token.token
+        # user=User.query.filter_by(username=token.User).first()
+        # print(user.phone_number)
+        print(access_token)
     else:
-        new_token = Token(User=username, token= token)
+        new_token = Token(User=username, token= access_token)
+        print(new_token)
         db.session.add(new_token)
         db.session.commit()
     return access_token
@@ -75,7 +95,10 @@ def login():
 @auth.route('/logout')
 def logout():
     print("inside logout")
-    logout_user()
+    # logout_user()
+    data= request.data
+    data_dict= json.loads(data.decode('utf-8'))
+    delete_token(token= data_dict["access-token"])
     # return redirect(url_for('auth.login'))
     response = Response(status=200)
     # need to set JSON like {'username': 'febin'}
