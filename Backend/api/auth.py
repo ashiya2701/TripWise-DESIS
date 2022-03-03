@@ -13,12 +13,12 @@ def delete_token(token = ""):
     access_token= token
     token = Token.query.filter_by(token=token).first()
     msg= {
-        deleted: "false"
+        deleted: False
     }
     if token:
         db.session.delete(token)
         db.session.commit()
-        msg["deleted"]= "true"
+        msg["deleted"]= True
     else:
         pass
     return msg
@@ -98,9 +98,12 @@ def logout():
     # logout_user()
     data= request.data
     data_dict= json.loads(data.decode('utf-8'))
-    delete_token(token= data_dict["access-token"])
-    # return redirect(url_for('auth.login'))
+    success= delete_token(token= data_dict["access-token"])["deleted"]
     response = Response(status=200)
+    if not success:
+        response = Response(status=404)
+    # return redirect(url_for('auth.login'))
+    
     # need to set JSON like {'username': 'febin'}
     return response
 
