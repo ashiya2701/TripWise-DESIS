@@ -9,12 +9,15 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    print("Testing")
     if request.method == 'POST':
         
         data= request.data
+        print(data)
         data_dict= json.loads(data.decode('utf-8'))
-
+        print(data_dict)
         email = data_dict['email']
+        print(email,"123")
         password= data_dict['password']
 
         user = User.query.filter_by(email=email).first()
@@ -34,7 +37,11 @@ def login():
     # return render_template("login.html", user=current_user)
 
     response = Response(status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     # need to set JSON like {'username': 'febin'}
+    print(response)
     return response
 
 
