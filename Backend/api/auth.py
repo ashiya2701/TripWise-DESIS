@@ -9,7 +9,7 @@ auth = Blueprint('auth', __name__)
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    print("Testing")
+    print(request)
     if request.method == 'POST':
         
         data= request.data
