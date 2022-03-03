@@ -13,9 +13,10 @@ def delete_token(token = ""):
     access_token= token
     token = Token.query.filter_by(token=token).first()
     msg= {
-        deleted: False
+        "deleted": False
     }
     if token:
+        print("deleting")
         db.session.delete(token)
         db.session.commit()
         msg["deleted"]= True
@@ -92,15 +93,17 @@ def login():
 
 
 # @login_required
-@auth.route('/logout')
+@auth.route('/logout',  methods=['GET', 'POST'])
 def logout():
+    
     print("inside logout")
     # logout_user()
     data= request.data
     data_dict= json.loads(data.decode('utf-8'))
-    success= delete_token(token= data_dict["access-token"])["deleted"]
+    success= delete_token(token= data_dict["access_token"])["deleted"]
     response = Response(status=200)
     if not success:
+        print("could not delete")
         response = Response(status=404)
     # return redirect(url_for('auth.login'))
     
