@@ -5,6 +5,7 @@ from __init__ import db
 from flask_login import login_user, login_required, logout_user, current_user
 import json
 import random
+from flask import jsonify, make_response
 # from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 auth = Blueprint('auth', __name__)
@@ -80,14 +81,22 @@ def login():
             print('incorrect email')
             flash('Email does not exist.', category='error')
     # print("outside:", response.headers)
-    # return render_template("login.html", user=current_user)
+    # return render_template("login.html", user=current_user)   
+    # d= {
+    #     'access_token':token
+    # }
 
-    response = Response(status=200 )
-    response.headers.add('access_token',token)
+    # return make_response(jsonify(d), 200)
+    
     # response.set_data(str({"access-token": "token"}))
     # response.text= "access-token"
     # response.headers.add('access-token', 'token')
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    response = Response(status=200 )
+    response.headers.add('access_token',token)
+    string= "token="+token
+    response.headers.add('Set-Cookie',string)
+    # response.cookies.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
     print(response.headers)
