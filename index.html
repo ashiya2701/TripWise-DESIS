@@ -7,14 +7,31 @@
     <title>Document</title>
 </head>
 <body>
+    <input id="email" type="text">
+    <input id="username" type="text">
+    <input id="name" type="text">
+    <input id="password" type="text">
+    <input id="phoneNumber" type="text">
+    <button id="btn">SignUp</button>
     <script>
-        fetch('http://localhost:5000/login',{
-            headers:,
-            body:,
-            method:
+        document.getElementById("btn").addEventListener("click",()=>
+        fetch('http://localhost:5000/sign-up',{
+            mode: "no-cors",
+            headers:{
+                "content-type" : "application/json; charset=UTF-8"
+            },
+            body:JSON.stringify({
+                email: document.getElementById("email").value,
+                username: document.getElementById("username").value,
+                name: document.getElementById("name").value,
+                password:document.getElementById("password").value,
+                phone_number:document.getElementById("phoneNumber").value
+            }),
+            method: "POST"
         })
-            .then(response => response.json())
-            .then(data => console.log(data));
+        )
+            // .then(response => response.json())
+            // .then(data => console.log(data));
     </script>
 </body>
 </html>

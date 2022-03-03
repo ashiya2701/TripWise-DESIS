@@ -23,7 +23,7 @@ def create_token(username = ""):
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
-    print("Testing")
+
     print(request)
     if request.method == 'POST':
         # pass
