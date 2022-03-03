@@ -62,6 +62,7 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         response = Response(status=200)
+        token: None
 
         if user:
             print('user exists')
@@ -69,7 +70,8 @@ def login():
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 token= create_token(username =username )
-                response.headers.add('access-token',token)
+                
+                # print("inside:", response.headers)
                 print('logged in')
             else:
                 flash('Incorrect password, try again.', category='error')
@@ -77,17 +79,18 @@ def login():
         else:
             print('incorrect email')
             flash('Email does not exist.', category='error')
-
+    # print("outside:", response.headers)
     # return render_template("login.html", user=current_user)
 
     response = Response(status=200 )
+    response.headers.add('access_token',token)
     # response.set_data(str({"access-token": "token"}))
     # response.text= "access-token"
     # response.headers.add('access-token', 'token')
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    print(response)
+    print(response.headers)
     return response
 
 
