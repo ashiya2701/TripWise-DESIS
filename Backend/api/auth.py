@@ -1,31 +1,54 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, Response
-from models import User
+from models import User, Token
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
 from flask_login import login_user, login_required, logout_user, current_user
 import json
+import random
+# from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 auth = Blueprint('auth', __name__)
+
+def create_token(username = ""):
+    username = username_input
+    access_token= username+ random.rand_int(0,10)
+    token = Token.query.filter_by(User=username).first()
+    if token:
+        access_token= token.token
+    else:
+        new_token = Token(User=username, token= token)
+        db.session.add(new_token)
+        db.session.commit()
+    return access_token
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
     print("Testing")
+    print(request)
     if request.method == 'POST':
-        
+        # pass
+        # body= request.body
+        # print(body)
         data= request.data
         print(data)
+        print(type(data))
         data_dict= json.loads(data.decode('utf-8'))
         print(data_dict)
-        email = data_dict['email']
-        print(email,"123")
+        username = data_dict['username']
+        print(username,"123")
         password= data_dict['password']
 
-        user = User.query.filter_by(email=email).first()
+        user = User.query.filter_by(username=username).first()
+
+        response = Response(status=200)
+
         if user:
             print('user exists')
             if check_password_hash(user.password, password):
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
+                token= create_token(username =username )
+                response.headers.add('access-token',token)
                 print('logged in')
             else:
                 flash('Incorrect password, try again.', category='error')
@@ -36,17 +59,20 @@ def login():
 
     # return render_template("login.html", user=current_user)
 
-    response = Response(status=200)
+    response = Response(status=200 )
+    # response.set_data(str({"access-token": "token"}))
+    # response.text= "access-token"
+    # response.headers.add('access-token', 'token')
     response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    # need to set JSON like {'username': 'febin'}
     print(response)
     return response
 
 
+
+# @login_required
 @auth.route('/logout')
-@login_required
 def logout():
     print("inside logout")
     logout_user()
