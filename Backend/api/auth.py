@@ -6,6 +6,7 @@ from flask_login import login_user, login_required, logout_user, current_user
 import json
 import random
 from flask import jsonify, make_response
+# from rest_framework import status
 # from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
 auth = Blueprint('auth', __name__)
@@ -92,17 +93,26 @@ def login():
     # response.text= "access-token"
     # response.headers.add('access-token', 'token')
     # response.headers.add('Access-Control-Allow-Origin', '*')
-    response = Response(status=200 )
+    string= "token="+token+"; Path=/"
+    # return string
+
+    data = {'detail': string}
+
+    response = Response(data, status=200 )
+    # print(response.body)
+    # response.body= string
+    # print(response.body)
     response.headers.add('access_token',token)
-    string= "token="+token
+    
     response.headers.add('Set-Cookie',string)
-    # response.cookies.add('Access-Control-Allow-Origin', '*')
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    print(response.headers)
+    response.headers.add("Access-Control-Expose-Headers","Authorization")
+    # print(response.headers)
     return response
 
-
+    # return jsonify(response= {"successfull": "yes"})
 
 # @login_required
 @auth.route('/logout',  methods=['GET', 'POST'])
@@ -123,54 +133,90 @@ def logout():
     return response
 
 
-@auth.route('/sign-up', methods=['GET', 'POST'])
+@auth.route('/sign-up', methods=['GET', 'POST', 'OPTIONS'])
 def sign_up():
-    if request.method == 'POST':
-        # print(request.data)
-        data= request.data
-        # print(type(data))
-        # print(data.decode('utf-8'))
-        # print(type(data.decode('utf-8')))
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response()    
+    print(request.data)
+    print("here")
+    data1= {}
+    # if request.method == 'POST':
+    print("here2")
+    print(request.data)
+    print("here3")
+    data= request.data
+    # print(type(data))
+    # print(data.decode('utf-8'))
+    # print(type(data.decode('utf-8')))
 
-        # print(json.loads(data.decode('utf-8')))
-        # print(type(json.loads(data.decode('utf-8'))))
+    # print(json.loads(data.decode('utf-8')))
+    # print(type(json.loads(data.decode('utf-8'))))
 
-        data_dict= json.loads(data.decode('utf-8'))
+    data_dict= json.loads(data.decode('utf-8'))
 
-        print(data_dict)
+    print(data_dict)
+    # data_dict= data_dict['formData']
 
-        email = data_dict['email']
-        # print(email)
+    email = data_dict['email']
+    # print(email)
 
-        username = data_dict['username']
-        name = data_dict['name']
-        password = data_dict['password']
-        phone_number = data_dict['phone_number']
+    username = data_dict['username']
+    name = data_dict['name']
+    password = data_dict['password']
+    phone_number = data_dict['phone_number']
+    data1= {"username":username }
 
-        user = User.query.filter_by(email=email).first()
-        # print(user)
-        if user:
-            print("user exists")
-            # Todo: return a bad response here
-            # flash('Email already exists.', category='error')
-        # elif len(email) < 4:
-        #     flash('Email must be greater than 3 characters.', category='error')
-        # elif len(first_name) < 2:
-        #     flash('First name must be greater than 1 character.', category='error')
-        # elif password1 != password2:
-        #     flash('Passwords don\'t match.', category='error')
-        # elif len(password1) < 7:
-        #     flash('Password must be at least 7 characters.', category='error')
-        else:
-            print("creating new user")
-            new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=generate_password_hash(
-                password, method='sha256'))
-            db.session.add(new_user)
-            db.session.commit()
-            login_user(new_user, remember=True)
-            # flash('Account created!', category='success')
-
+    user = User.query.filter_by(email=email).first()
+    # print(user)
+    if user:
+        print("user exists")
+        # Todo: return a bad response here
+        # flash('Email already exists.', category='error')
+    # elif len(email) < 4:
+    #     flash('Email must be greater than 3 characters.', category='error')
+    # elif len(first_name) < 2:
+    #     flash('First name must be greater than 1 character.', category='error')
+    # elif password1 != password2:
+    #     flash('Passwords don\'t match.', category='error')
+    # elif len(password1) < 7:
+    #     flash('Password must be at least 7 characters.', category='error')
+    else:
+        print("creating new user")
+        new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=generate_password_hash(
+            password, method='sha256'))
+        db.session.add(new_user)
+        db.session.commit()
+        login_user(new_user, remember=True)
+        # flash('Account created!', category='success')
+    
     # return render_template("sign_up.html", user=current_user)
-    response = Response(status=200)
+    response = Response(data1["username"], status=200)
+
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
+    response.headers.add('Access-Control-Allow-Methods', '*')
+    # response.headers.add("Access-Control-Expose-Headers","Authorization")
     # need to set JSON like {'username': 'febin'}
+    return _corsify_actual_response(response)
+
+
+# @auth.route('/sample',  methods=['GET', 'POST'])
+# def sample():
+    
+#     print("inside sample")
+
+
+def _build_cors_preflight_response():
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
     return response
+
+
+def _corsify_actual_response(response):
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add("Access-Control-Expose-Headers","Authorization")
+    return response
+   

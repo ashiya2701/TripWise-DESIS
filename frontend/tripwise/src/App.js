@@ -1,19 +1,19 @@
 import React from 'react';
 import './App.css';
-import Navbar from './components';
 import { BrowserRouter as Router, Routes, Route}
 	from 'react-router-dom';
-// import Home from './pages';
-// import Login from './pages/login';
-import SignUp1 from './pages/Signup1';
-// import HomeBody from './components';
+import Signup1 from "./components/Signup1";
+import HotelSuggestion from "./components/HotelSuggestion";
+
+// /home/ishu/Desktop/desis/project/TripWise-DESIS/frontend/tripwise/src/components/Signup1.js
 
 function App() {
 return (
 	<Router>
 	<Routes>
 
-		<Route path='/Signup1' element={<SignUp1/>} />
+		<Route path='/Signup1' element={<Signup1/>} />
+    <Route path='/HotelSuggestion' element={<HotelSuggestion/>} />
 	</Routes>
 	</Router>
 );

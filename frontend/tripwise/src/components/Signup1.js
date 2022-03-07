@@ -57,39 +57,90 @@ class Signup1 extends Component{
 
 
     async handleSubmit(event){
+
         event.preventDefault();
 
-        // console.log(Cookies.get("csrftoken"));
+
+        // const respons= await axios({url:'http://localhost:5000/sample/' ,
+        // method:'GET', 
+        // mode: "no-cors"
+        // })
+        // .then( 
+        // console.log("request.. ")
         
+        // )
+        // .catch(err => {
+        //     console.log(err)
+        //    console.log("request!!!!")
+        // })
+
+        // console.log(respons)
+
+
+
+       
+
+        // console.log(Cookies.get("csrftoken"));
+      
         let formData = { 
-            name: this.state.name,
-            email: this.state.email ,
-            // state:this.state.state ,
+            email: this.state.email,
             username: this.state.username,
-            phone_number: this.state.phone,
-            password: this.state.password
+            name: this.state.name,
+            password: this.state.password,
+            phone_number:this.state.phone
 
         }
 
         console.log(formData);
 
-        const response= await axios({url:'http://127.0.0.1:5000/login/' ,
-        method:'POST', 
-        data:formData , 
-        withCredentials:true, 
-        headers: {"Content-Type": "application/json", }})
-        .then(
+
+        const response= await axios(
+            {url: 'http://localhost:5000/sign-up' ,
+            method:'POST', 
+        // mode: "no-cors",
+            data: formData
+            }
+        )
+        .then( 
         console.log("request.. ")
         
         )
         .catch(err => {
-           console.log("request!!!!")
+            console.log(err)
+            console.log("request!!!!")
         })
 
-        console.log(response);
+        console.log(response)
 
-      
+        // let headers={}
 
+        // headers['Content-Type']='application/json';
+        // headers['Accept']= 'application/json';
+        // headers['Access-Control-Allow-Origin']= 'http://localhost:3000';
+
+
+        // // headers.append('Content-Type', 'application/json');
+        // // headers.append('Accept', 'application/json');
+        // // headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
+        // // // headers.append('Access-Control-Allow-Credentials', 'true');
+
+        // // headers.append('GET', 'POST', 'OPTIONS');
+
+        // const response= await axios({url:'http://localhost:5000/sign-up/' ,
+        // method:'POST', 
+        // mode: "no-cors",
+        // data:formData , 
+        // headers: headers})
+        // .then( 
+        // console.log("request.. ")
+        
+        // )
+        // .catch(err => {
+        //     console.log(err)
+        //    console.log("request!!!!")
+        // })
+
+        // console.log(response);
     }
     
     async HandleNameChange(event){

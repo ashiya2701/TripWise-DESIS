@@ -3,7 +3,7 @@ from flask_sqlalchemy import SQLAlchemy
 import os
 from flask_login import LoginManager
 from config import Config
-from flask_cors import CORS
+from flask_cors import CORS, cross_origin
 
 db = SQLAlchemy()
 DB_NAME = "database.db"
@@ -11,14 +11,22 @@ BASE_DIR= os.path.dirname(os.path.abspath(__name__))
 
 def create_app():
     app = Flask(__name__)
+    CORS(app)
+    cors = CORS(app, resource={
+        r"/*":{
+            "origins":"*"
+        }
+    })
     app.config['SECRET_KEY'] = 'hjshjhdjah kjshkjdhjs'
     app.config.from_object(Config)
-    CORS(app)
+    
     db.init_app(app)
 
     from models import User
 
     from auth import auth
+    from cities import cities
+    app.register_blueprint(cities, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
 
     from sample import sample
