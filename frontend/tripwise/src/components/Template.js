@@ -9,7 +9,7 @@ import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-class HotelSuggestion extends Component{
+class Template extends Component{
     constructor(props)
     {
         super(props);
@@ -84,4 +84,4 @@ class HotelSuggestion extends Component{
 
 
 
-export default HotelSuggestion;
+export default Template;

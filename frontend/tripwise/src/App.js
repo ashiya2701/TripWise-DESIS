@@ -3,7 +3,7 @@ import './App.css';
 import { BrowserRouter as Router, Routes, Route}
 	from 'react-router-dom';
 import Signup1 from "./components/Signup1";
-import HotelSuggestion from "./components/HotelSuggestion";
+import Template from "./components/Template";
 
 // /home/ishu/Desktop/desis/project/TripWise-DESIS/frontend/tripwise/src/components/Signup1.js
 
@@ -13,7 +13,7 @@ return (
 	<Routes>
 
 		<Route path='/Signup1' element={<Signup1/>} />
-    <Route path='/HotelSuggestion' element={<HotelSuggestion/>} />
+    	<Route path='/Template' element={<Template/>} />
 	</Routes>
 	</Router>
 );

@@ -186,6 +186,7 @@ def sampleCheckData():
     #     ['Pune','Chennai',0.35,2567]
     
         
+
         
     #  ]
     # data3 = [
@@ -531,7 +532,11 @@ def sampleCheckData():
     #     ['Pune',5000,5,10,0.25,0.5],
     #     ['Pune',7000,20,18,1.05,0.55]
       
-    # ]    
+    # ]  
+    # 
+    # 
+    
+             
         
     for entry in data:
         city=City.query.filter_by(name=entry[0]).first()
@@ -545,7 +550,7 @@ def sampleCheckData():
         db.session.add(new_city)
     # for record in data2:
     #     new_flight=Flight(src=record[0],dest=record[1],dur=record[2],price=record[3])
-    #     db.session.add(new_flight)
+        # db.session.add(new_flight)
         
     # for record in data3:
     #     new_bus=Bus(src=record[0],dest=record[1],dur=record[2],price=record[3])
