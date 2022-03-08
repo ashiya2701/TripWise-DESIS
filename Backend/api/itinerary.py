@@ -1,36 +1,53 @@
-# from flask import Blueprint, render_template, request, flash, redirect, url_for, Response
-# from models import Flight
-# from models import User, City
-# from werkzeug.security import generate_password_hash, check_password_hash
-# from __init__ import db
-# from flask_login import login_user, login_required, logout_user, current_user
-# import json
-# from sqlalchemy import insert
+from flask import Blueprint, Response, request, make_response
+from models import City, Place
+from __init__ import db
+import json
 import math
+from flask_cors import CORS, cross_origin
 
-# itinerary = Blueprint('itinerary', __name__)
+itinerary = Blueprint('itinerary', __name__)
 
-# @itinerary.route('/generate_itinerary', methods=['GET', 'POST'])
-def itinerary():
-    # assuming we'll get city_id in request params
-    # and through the city_id we'll extract data about various places in that city
+@itinerary.route('/generate_itinerary', methods=['GET', 'POST', 'OPTIONS'])
+def generate_itinerary():
+    if request.method == "OPTIONS":
+        return _build_cors_preflight_response()
+    
+    data= request.data
+    data_dict= json.loads(data.decode('utf-8'))
+    city_name= data_dict["cityName"]
 
-    # place_id, x-coordinate, y-coordinate
+    city= City.query.filter_by(name=city_name).first()
 
-    data=[
-        [1, 5 , 10 ],
-        [2, 5 , 20 ],
-        [3, 8 , 25 ],
-        [4, 15 , 50],
-        [5, 1, 20 ],
-        [6, 30, 5],
-        [7, 2, 2],
-        [8, 20,12 ],
-        [9, 50, 4 ],
-        [10, 3,10 ],
-        [11,47 ,21 ],
-        [12, 28, 3]        
-    ]
+    city_id= city.id
+
+    places= Place.query.filter_by(city= city_id).all()
+
+    print(places)
+
+    # data-> place_id, x-coordinate, y-coordinate
+    data=[]
+
+    for x in places:
+        data.append([x.id, x.xcordinate, x.ycordinate])
+
+
+    # sample data
+    # data=[
+    #     [1, 5 , 10 ],
+    #     [2, 5 , 20 ],
+    #     [3, 8 , 25 ],
+    #     [4, 15 , 50],
+    #     [5, 1, 20 ],
+    #     [6, 30, 5],
+    #     [7, 2, 2],
+    #     [8, 20,12 ],
+    #     [9, 50, 4 ],
+    #     [10, 3,10 ],
+    #     [11,47 ,21 ],
+    #     [12, 28, 3]        
+    # ]
+
+    print(data)
 
     
     adj_matrix=[]
@@ -62,12 +79,16 @@ def itinerary():
         if squaredDistance<minSquaredDistance:
             startPlaceId= place[0]
             minSquaredDistance= squaredDistance
+    
+    # print(startPlaceId)
 
     
     visited={}
 
     for place in data:
         visited[place[0]]= False
+
+    # print(visited)
     
     visited[startPlaceId]= True
     lastVisitedPlace= startPlaceId
@@ -75,7 +96,7 @@ def itinerary():
     itinerary= []
     itinerary.append(startPlaceId)
 
-    number_of_places_left= len(visited)
+    number_of_places_left= len(visited)-1
 
     while number_of_places_left > 0:
         index= mapPlaceIdToMatrixIndex[lastVisitedPlace]
@@ -95,5 +116,30 @@ def itinerary():
         number_of_places_left-=1
 
     print(itinerary)
+    answer=[]
 
-itinerary()
+    for place in itinerary:
+        place_details = Place.query.filter_by(id= place).first()
+        temp= [place_details.id, place_details.name, place_details.xcordinate, place_details.ycordinate]
+        answer.append(temp)
+
+    response = Response(json.dumps(answer),status=200)
+    response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    return _corsify_actual_response(response)
+
+
+def _build_cors_preflight_response():
+    # print("making response")
+    response = make_response()
+    response.headers.add("Access-Control-Allow-Origin", "*")
+    response.headers.add('Access-Control-Allow-Headers', "*")
+    response.headers.add('Access-Control-Allow-Methods', "*")
+    return response
+
+
+def _corsify_actual_response(response):
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+    response.headers.add("Access-Control-Expose-Headers","Authorization")
+    return response

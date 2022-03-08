@@ -13,7 +13,7 @@ auth = Blueprint('auth', __name__)
 
 def delete_token(token = ""):
     access_token= token
-    token = Token.query.filter_by(token=token).first()
+    token = Token.query.filter_by(token=access_token).first()
     msg= {
         "deleted": False
     }
@@ -23,7 +23,7 @@ def delete_token(token = ""):
         db.session.commit()
         msg["deleted"]= True
     else:
-        pass
+        print("token does not exist")
     return msg
         
 
@@ -44,10 +44,16 @@ def create_token(username = ""):
         db.session.commit()
     return access_token
 
+def check_token(token=""):
+    pass
+
 @auth.route('/login', methods=['GET', 'POST'])
 def login():
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response()    
+    # print(request)
+    token= None
 
-    print(request)
     if request.method == 'POST':
         # pass
         # body= request.body
@@ -58,17 +64,16 @@ def login():
         data_dict= json.loads(data.decode('utf-8'))
         print(data_dict)
         username = data_dict['username']
-        print(username,"123")
         password= data_dict['password']
 
         user = User.query.filter_by(username=username).first()
 
         response = Response(status=200)
-        token: None
+        
 
         if user:
             print('user exists')
-            if check_password_hash(user.password, password):
+            if user.password ==  password:
                 flash('Logged in successfully!', category='success')
                 login_user(user, remember=True)
                 token= create_token(username =username )
@@ -81,56 +86,37 @@ def login():
         else:
             print('incorrect email')
             flash('Email does not exist.', category='error')
-    # print("outside:", response.headers)
-    # return render_template("login.html", user=current_user)   
-    # d= {
-    #     'access_token':token
-    # }
-
-    # return make_response(jsonify(d), 200)
     
-    # response.set_data(str({"access-token": "token"}))
-    # response.text= "access-token"
-    # response.headers.add('access-token', 'token')
-    # response.headers.add('Access-Control-Allow-Origin', '*')
-    string= "token="+token+"; Path=/"
-    # return string
+    # string= "token="+token+"; Path=/"
 
-    data = {'detail': string}
-
-    response = Response(data, status=200 )
-    # print(response.body)
-    # response.body= string
-    # print(response.body)
-    response.headers.add('access_token',token)
+    response = Response(token, status=200 )
     
-    response.headers.add('Set-Cookie',string)
+    
     response.headers.add('Access-Control-Allow-Origin', '*')
-    # response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
-    response.headers.add("Access-Control-Expose-Headers","Authorization")
-    # print(response.headers)
-    return response
+    # response.headers.add("Access-Control-Expose-Headers","Authorization")
+    
+    return _corsify_actual_response(response)
 
     # return jsonify(response= {"successfull": "yes"})
 
-# @login_required
+
 @auth.route('/logout',  methods=['GET', 'POST'])
 def logout():
-    
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response()        
     print("inside logout")
     # logout_user()
     data= request.data
     data_dict= json.loads(data.decode('utf-8'))
     success= delete_token(token= data_dict["access_token"])["deleted"]
-    response = Response(status=200)
+    data="done"
+    response = Response(data, status=200)
     if not success:
+        data= "not done"
         print("could not delete")
-        response = Response(status=404)
-    # return redirect(url_for('auth.login'))
-    
-    # need to set JSON like {'username': 'febin'}
-    return response
+        response = Response(data,status=404)
+    return _corsify_actual_response(response)
 
 
 @auth.route('/sign-up', methods=['GET', 'POST', 'OPTIONS'])
@@ -182,8 +168,7 @@ def sign_up():
     #     flash('Password must be at least 7 characters.', category='error')
     else:
         print("creating new user")
-        new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=generate_password_hash(
-            password, method='sha256'))
+        new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=password)
         db.session.add(new_user)
         db.session.commit()
         login_user(new_user, remember=True)
@@ -198,12 +183,6 @@ def sign_up():
     # response.headers.add("Access-Control-Expose-Headers","Authorization")
     # need to set JSON like {'username': 'febin'}
     return _corsify_actual_response(response)
-
-
-# @auth.route('/sample',  methods=['GET', 'POST'])
-# def sample():
-    
-#     print("inside sample")
 
 
 def _build_cors_preflight_response():

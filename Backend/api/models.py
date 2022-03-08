@@ -56,3 +56,10 @@ class Token(db.Model):
         id=db.Column(db.Integer, primary_key=True)
         User=db.Column(db.Integer, ForeignKey(User.username))
         token= db.Column(db.String(150))
+
+class Place(db.Model):
+        id=db.Column(db.Integer, primary_key=True)
+        city=db.Column(db.Integer, ForeignKey(City.id))
+        name=db.Column(db.String(150))
+        xcordinate= db.Column(db.Integer)
+        ycordinate= db.Column(db.Integer)

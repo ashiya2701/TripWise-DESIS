@@ -26,8 +26,13 @@ def create_app():
 
     from auth import auth
     from cities import cities
+    from populatePlaces import populatePlaces
+    from itinerary import itinerary
+
     app.register_blueprint(cities, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
+    app.register_blueprint(populatePlaces, url_prefix='/')
+    app.register_blueprint(itinerary, url_prefix='/')
 
     from sample import sample
     app.register_blueprint(sample, url_prefix='/')

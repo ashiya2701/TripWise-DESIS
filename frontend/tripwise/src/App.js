@@ -6,8 +6,7 @@ import Signup1 from "./components/Signup1";
 import Template from "./components/Template";
 import Login from './components/Login';
 import Logout from './components/Logout';
-
-// /home/ishu/Desktop/desis/project/TripWise-DESIS/frontend/tripwise/src/components/Signup1.js
+import Itinerary from './components/Itinerary';
 
 function App() {
 return (
@@ -17,6 +16,7 @@ return (
 		<Route path='/Signup1' element={<Signup1/>} />
 		<Route path='/login' element={<Login/>} />
 		<Route path='/logout' element={<Logout/>} />
+		<Route path='/itinerary' element={<Itinerary/>} />
     	<Route path='/Template' element={<Template/>} />
 	</Routes>
 	</Router>
