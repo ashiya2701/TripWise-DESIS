@@ -16,7 +16,6 @@ class Signup1 extends Component{
         this.state = { 
             name:"",
             email:"",
-            state:"",
             username:"",
             phone:"",
             password:"",
@@ -38,8 +37,6 @@ class Signup1 extends Component{
 <Form.Field >
 <Input type="email" value={this.state.email} onChange={event => this.HandleemailChange(event)} placeholder="email" required /></Form.Field>
 <Form.Field >
-<Input type="text" value={this.state.state} onChange={event => this.HandlestateChange(event)} placeholder="state" required /></Form.Field>
-<Form.Field >
 <Input type="text" value={this.state.username} onChange={event => this.HandleusernameChange(event)} placeholder="Username" required /></Form.Field>
 <Form.Field >
 <Input type="text" value={this.state.phone} onChange={event => this.HandlephoneChange(event)} placeholder="phone" required /></Form.Field>
@@ -47,7 +44,7 @@ class Signup1 extends Component{
 <Input type="password" value={this.state.password} onChange={event => this.HandlepasswordChange(event)} placeholder="password" required />
 </Form.Field> 
             
-<Button type="submit" color="black">Create Project</Button>
+<Button type="submit" color="black">Signup</Button>
             </Form>
             </div>
         
@@ -60,27 +57,6 @@ class Signup1 extends Component{
 
         event.preventDefault();
 
-
-        // const respons= await axios({url:'http://localhost:5000/sample/' ,
-        // method:'GET', 
-        // mode: "no-cors"
-        // })
-        // .then( 
-        // console.log("request.. ")
-        
-        // )
-        // .catch(err => {
-        //     console.log(err)
-        //    console.log("request!!!!")
-        // })
-
-        // console.log(respons)
-
-
-
-       
-
-        // console.log(Cookies.get("csrftoken"));
       
         let formData = { 
             email: this.state.email,
@@ -111,36 +87,6 @@ class Signup1 extends Component{
         })
 
         console.log(response)
-
-        // let headers={}
-
-        // headers['Content-Type']='application/json';
-        // headers['Accept']= 'application/json';
-        // headers['Access-Control-Allow-Origin']= 'http://localhost:3000';
-
-
-        // // headers.append('Content-Type', 'application/json');
-        // // headers.append('Accept', 'application/json');
-        // // headers.append('Access-Control-Allow-Origin', 'http://localhost:3000');
-        // // // headers.append('Access-Control-Allow-Credentials', 'true');
-
-        // // headers.append('GET', 'POST', 'OPTIONS');
-
-        // const response= await axios({url:'http://localhost:5000/sign-up/' ,
-        // method:'POST', 
-        // mode: "no-cors",
-        // data:formData , 
-        // headers: headers})
-        // .then( 
-        // console.log("request.. ")
-        
-        // )
-        // .catch(err => {
-        //     console.log(err)
-        //    console.log("request!!!!")
-        // })
-
-        // console.log(response);
     }
     
     async HandleNameChange(event){
@@ -152,12 +98,6 @@ class Signup1 extends Component{
     async HandleemailChange(event){
         this.setState({
             email: event.target.value
-        });
-
-    }
-    async HandlestateChange(event){
-        this.setState({
-            state: event.target.value
         });
 
     }
