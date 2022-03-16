@@ -45,7 +45,26 @@ def create_token(username = ""):
     return access_token
 
 def check_token(token=""):
-    pass
+    
+    access_token= token
+    print(access_token)
+    print(type(access_token))
+    token = Token.query.filter_by(token=access_token).first()
+    print(token)
+
+    # print(type("Ishu57516"))
+    # token= Token.query.filter_by(token="Ishu57516").first()
+    # print(token)
+
+    # print(access_token == "Ishu57516")
+
+    if token is not None:
+        user_id= token.User
+        return user_id                
+    else:
+        raise ValueError("Wrong Token! Not logged in probably") 
+    
+
 
 @auth.route('/login', methods=['GET', 'POST'])
 def login():

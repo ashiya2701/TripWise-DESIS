@@ -10,11 +10,15 @@ class User(db.Model, UserMixin):
         password = db.Column(db.String(150))
         phone_number = db.Column(db.String(10))
 
-# class Group(db.Model):
-#         id=db.Column(db.Integer, primary_key=True)
-#         name=db.Column(db.String(150))
-#         description=db.Column(db.String(300))
-       
+class Group(db.Model):
+        id=db.Column(db.Integer, primary_key=True)
+        name=db.Column(db.String(150))
+        description=db.Column(db.String(300))
+
+class UserGroups(db.Model):
+        id=db.Column(db.Integer, primary_key=True)
+        group=db.Column(db.Integer, ForeignKey(Group.id))
+        user=db.Column(db.Integer, ForeignKey(User.id))        
 
 class City(db.Model):
         id=db.Column(db.Integer, primary_key=True)
