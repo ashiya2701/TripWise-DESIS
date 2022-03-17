@@ -2,9 +2,8 @@ from flask import Blueprint, render_template, request, flash, redirect, url_for,
 from models import User, Token, Group, UserGroups
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
-from flask_login import login_user, login_required, logout_user, current_user
 import json
-from flask import jsonify, make_response
+from flask import make_response
 from flask_cors import CORS, cross_origin
 from auth import check_token
 
@@ -17,13 +16,18 @@ CORS(group)
 def listMembers():
     if request.method == "OPTIONS": # CORS preflight
         return _build_cors_preflight_response()
-    headers= request.headers        
+    headers= request.headers
+    # print("here1!")        
     try:
+        # print("here2!")
         request_user= check_token(headers.get("access_token"))
+        # print("request_user: ", request_user)
+        request_user_id= User.query.filter_by(username= request_user).first().id
         all_users= User.query.all()
         result=[]
         for user in all_users:
-            if user.id == request_user:
+            # print(user.id)
+            if user.id == request_user_id:
                 continue
             data= {
                 "id" : user.id,
@@ -31,13 +35,18 @@ def listMembers():
                 "phoneNumber" : user.phone_number,
                 "email" : user.email
             }
-            response = Response(json.dumps(result),status=200)
+            result.append(data)
+        response = Response(json.dumps(result),status=200)
+        print("here3!")
     except:
         response = Response("could not return all_users",status=404)
 
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    print("here4!")
+
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 
+    print("here5!")
     return _corsify_actual_response(response)  
 
 
@@ -50,19 +59,24 @@ def listGroups():
     headers= request.headers        
     try:
         creator= check_token(headers.get("access_token"))
-        user_groups_creator= UserGroups.query.filter_by(user= creator).all()
+        creator_id= User.query.filter_by(username= creator).first().id
+        user_groups_creator= UserGroups.query.filter_by(user= creator_id).all()
         result=[]
+        print("here1!")
+        
         for user_group in user_groups_creator:
+            print("here2!")
             group= user_group.group
             user_groups_group= UserGroups.query.filter_by(group= group).all()
             group_details= Group.query.filter_by(id= group).first()
             data={
+                "id": group_details.id,
                 "name": group_details.name,
                 "desc": group_details.description
             }
             members=[]
             for x in user_groups_group:
-                member= User.objects.filter_by(id= x.user).first()
+                member= User.query.filter_by(id= x.user).first()
                 member_details= {
                     "name": member.name,
                     "username": member.username,
@@ -75,10 +89,13 @@ def listGroups():
 
         response = Response(json.dumps(result),status=200)
     except:
-        response = Response("could not create a group",status=404)
+        response = Response("could not list the groups",status=404)
 
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+
+    # print(response)
+    print("here!")
 
     return _corsify_actual_response(response)         
 
@@ -98,13 +115,14 @@ def createGroup():
         group_name= data_dict["groupName"]
         group_description= data_dict["groupDesc"]
         creator= check_token(headers.get("access_token"))
+        creator_id= User.query.filter_by(username= creator).first().id
         new_group= Group(name=group_name,description= group_description)
         db.session.add(new_group)
         db.session.commit()
         print(new_group)
         print(new_group.id)
         
-        user_groups_creator= UserGroups(group= new_group.id, user=creator)
+        user_groups_creator= UserGroups(group= new_group.id, user=creator_id)
         db.session.add(user_groups_creator)
         for x in data_dict["Members"]:
             new_user_group= UserGroups(group= new_group.id, user=x)
@@ -114,7 +132,7 @@ def createGroup():
     except:
         response = Response("could not create a group",status=404)
 
-    response.headers.add('Access-Control-Allow-Origin', '*')
+    # response.headers.add('Access-Control-Allow-Origin', '*')
     response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
 
     return _corsify_actual_response(response)         

@@ -50,7 +50,7 @@ class Itinerary extends Component{
                         x-coordinate: {place[2]}
                         &nbsp;
                         y-coordinate: {place[3]}
-                        
+
 
 
                     </div>
@@ -59,14 +59,8 @@ class Itinerary extends Component{
             })
             
             }
-
-
             </div>
-
-
-            </div>
-        
-           
+            </div> 
         );
     }
 
