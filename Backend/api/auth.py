@@ -174,7 +174,7 @@ def sign_up():
     user = User.query.filter_by(email=email).first()
     # print(user)
     if user:
-        print("user exists")
+        print("user email exists")
         # Todo: return a bad response here
         # flash('Email already exists.', category='error')
     # elif len(email) < 4:
@@ -186,11 +186,15 @@ def sign_up():
     # elif len(password1) < 7:
     #     flash('Password must be at least 7 characters.', category='error')
     else:
-        print("creating new user")
-        new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=password)
-        db.session.add(new_user)
-        db.session.commit()
-        login_user(new_user, remember=True)
+        user1 = User.query.filter_by(username=username).first()
+        if user1:
+            print("username  exists")
+        else:
+            print("creating new user")
+            new_user = User(email=email,name= name, phone_number= phone_number, username=username, password=password)
+            db.session.add(new_user)
+            db.session.commit()
+            login_user(new_user, remember=True)
         # flash('Account created!', category='success')
     
     # return render_template("sign_up.html", user=current_user)
