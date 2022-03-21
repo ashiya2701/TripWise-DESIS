@@ -1,3 +1,4 @@
+import 'semantic-ui-css/semantic.min.css';
 import React, {Component} from 'react';
 import { render } from '@testing-library/react';
 import { Redirect } from 'react-router-dom';
