@@ -9,13 +9,16 @@ import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-class Template extends Component{
+const cookies = new Cookies();
+
+class planner extends Component{
     constructor(props)
     {
         super(props);
         this.state = { 
             src:"",
             dest:"",
+            answer: []
         };
     }
 
@@ -37,42 +40,33 @@ class Template extends Component{
                         
             <Button type="submit" color="black">Find Best Route</Button>
             </Form>
+            
+            <div>
+
+            {this.state.answer.map((route) => {
+                return(
+                    <div key= {route[0]}>
+                        
+                        Name: {route[1]}
+                        &nbsp;
+                        x-coordinate: {route[2]}
+                        &nbsp;
+                        y-coordinate: {route[3]}
+
+
+
+                    </div>
+                );
+
+            })
+            
+            }
             </div>
-        
+            </div>
            
         );
     }
-
-
-    async handleSubmit(event){
-
-        event.preventDefault();
-
-        let data= {"src": this.state.src, "dest": this.state.dest} 
-        
-
-
-        const response= await axios(
-            {url: 'http://localhost:5000/planner' ,
-            method:'GET', 
-        // mode: "no-cors",S
-            data: data
-            }
-        )
-        .then( 
-        console.log("request.. ")
-        
-        )
-        .catch(err => {
-            console.log(err)
-            console.log("request!!!!")
-        })
-
-        console.log(response)
-
-       
-    }
-    
+      
     async HandleSrcChange(event){
         this.setState({
             src: event.target.value
@@ -85,6 +79,42 @@ class Template extends Component{
         });
 
     }
+
+    async handleSubmit(event){
+
+        event.preventDefault();
+
+        let data= {"src": this.state.src, "dest": this.state.dest} 
+        
+
+        console.log(formData);
+        const response= await axios(
+            {url: 'http://localhost:5000/planner' ,
+            method:'GET', 
+        // mode: "no-cors",S
+            data: FormData
+            }
+        )
+        .then( 
+          console.log("request.. ")
+        
+        )
+        .catch(err => {
+            console.log(err)
+            console.log("request!!!!")
+        })
+
+        console.log(response)
+        console.log(response.data)
+
+        this.setState({
+            answer: response.data
+        });
+        
+
+       
+    }
+  
     
     async componentDidMount(){
        
@@ -95,4 +125,4 @@ class Template extends Component{
 
 
 
-export default Template;
+export default planner;
