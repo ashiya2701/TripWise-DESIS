@@ -26,9 +26,10 @@ def create_app():
 
     from auth import auth
     from cities import cities
+    from hotels import hotels
     app.register_blueprint(cities, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
-
+    app.register_blueprint(hotels, url_prefix='/')    
     from sample import sample
     app.register_blueprint(sample, url_prefix='/')
 
