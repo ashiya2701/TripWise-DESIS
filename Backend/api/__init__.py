@@ -29,12 +29,14 @@ def create_app():
     from populatePlaces import populatePlaces
     from itinerary import itinerary
     from group import group
+    from expense_logs import expense_logs
 
     app.register_blueprint(cities, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
     app.register_blueprint(populatePlaces, url_prefix='/')
     app.register_blueprint(itinerary, url_prefix='/')
     app.register_blueprint(group, url_prefix='/')
+    app.register_blueprint(expense_logs, url_prefix='/')
 
     from sample import sample
     app.register_blueprint(sample, url_prefix='/')

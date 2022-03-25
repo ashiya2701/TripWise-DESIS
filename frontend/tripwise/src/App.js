@@ -9,6 +9,7 @@ import Logout from './components/Logout';
 import Itinerary from './components/Itinerary';
 import CreateGroup from './components/create_group'
 import ListGroups from './components/list_groups'
+import Group from './components/group';
 
 function App() {
 return (
@@ -22,6 +23,7 @@ return (
     	<Route path='/Template' element={<Template/>} />
 		<Route path='/CreateGroup' element={<CreateGroup/>} />
 		<Route path='/ListGroups' element={<ListGroups/>} />
+		<Route path='/group' element={<Group/>} />
 	</Routes>
 	</Router>
 );

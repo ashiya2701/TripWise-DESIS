@@ -1,3 +1,4 @@
+from expense_logs import get_expense_logs
 from flask import Blueprint, render_template, request, flash, redirect, url_for, Response
 from models import User, Token, Group, UserGroups
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -6,10 +7,10 @@ import json
 from flask import make_response
 from flask_cors import CORS, cross_origin
 from auth import check_token
+from expense_logs import get_expense_logs, get_user_final_log
 
 group = Blueprint('group', __name__)
 CORS(group)
-
 
 @group.route('/group/list_members', methods=['GET', 'OPTIONS'])
 @cross_origin()
@@ -49,7 +50,6 @@ def listMembers():
     print("here5!")
     return _corsify_actual_response(response)  
 
-
 @group.route('/group/list', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def listGroups():
@@ -78,6 +78,7 @@ def listGroups():
             for x in user_groups_group:
                 member= User.query.filter_by(id= x.user).first()
                 member_details= {
+                    "id": member.id,
                     "name": member.name,
                     "username": member.username,
                     "email": member.email,
@@ -98,6 +99,66 @@ def listGroups():
     print("here!")
 
     return _corsify_actual_response(response)         
+
+
+# Todo: check if the person is a member of the group
+# @group.route('/group/', defaults={'id': 1})
+@group.route('/group/<int:id>', methods=['GET', 'OPTIONS'])
+@cross_origin()
+def groupDetails(id=None):
+
+    if request.method == "OPTIONS": # CORS preflight
+        return _build_cors_preflight_response() 
+
+    print("here")
+
+    headers= request.headers
+
+         
+    try:
+        user= check_token(headers.get("access_token"))
+        user_id= User.query.filter_by(username= user).first().id
+
+        print("here2: ", user_id)
+
+        group_details= Group.query.filter_by(id= id).first()
+
+        user_groups_group= UserGroups.query.filter_by(group= group_details.id).all()
+        result={}
+        
+        data={
+            "id": group_details.id,
+            "name": group_details.name,
+            "desc": group_details.description
+        }
+        members=[]
+        for x in user_groups_group:
+            member= User.query.filter_by(id= x.user).first()
+            member_details= {
+                "id": member.id,
+                "name": member.name,
+                "username": member.username,
+                "email": member.email,
+                "phoneNumber": member.phone_number
+            }
+            members.append(member_details)
+        data["members"]= members
+
+        result['group_details']= data
+        
+        result['expense_logs'] = get_expense_logs(id)
+        result['user_final_log'] = get_user_final_log(id,user_id)
+
+        print(result)
+        response = Response(json.dumps(result),status=200)
+    except:
+        print("here3")
+        response = Response("could not give details of the group",status=404)
+
+    # response.headers.add('Access-Control-Allow-Origin', '*')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS')
+
+    return _corsify_actual_response(response)
 
 
 @group.route('/group/create', methods=['GET', 'POST', 'OPTIONS'])

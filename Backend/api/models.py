@@ -67,3 +67,15 @@ class Place(db.Model):
         name=db.Column(db.String(150))
         xcordinate= db.Column(db.Integer)
         ycordinate= db.Column(db.Integer)
+
+class Expense(db.Model):
+        id = db.Column(db.Integer, primary_key=True)
+        description = db.Column(db.String(150))
+        amount = db.Column(db.Integer)
+        group = db.Column(db.Integer, ForeignKey(Group.id))
+        paid_by = db.Column(db.Integer, ForeignKey(User.id))
+
+class UserExpense(db.Model):
+        id=db.Column(db.Integer, primary_key=True)
+        expense=db.Column(db.Integer, ForeignKey(Expense.id))
+        user=db.Column(db.Integer, ForeignKey(User.id))
