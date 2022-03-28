@@ -1,5 +1,5 @@
 from flask import Blueprint, render_template, request, flash, redirect, url_for, Response
-from models import User, Token, Hotels
+from models import User, Token, Hotels, City
 from werkzeug.security import generate_password_hash, check_password_hash
 from __init__ import db
 from flask_login import login_user, login_required, logout_user, current_user
@@ -8,36 +8,42 @@ import random
 from flask import jsonify, make_response
 # from flask_cors import CORS
 from flask_cors import CORS, cross_origin
+from sqlalchemy import desc, asc
 # from rest_framework import status
 # from flask_jwt_extended import create_access_token,get_jwt,get_jwt_identity, unset_jwt_cookies, jwt_required, JWTManager
 
-hotels = Blueprint('hotels', __name__)
-CORS(hotels)
+hotel = Blueprint('hotel', __name__)
+CORS(hotel)
 
-@hotels.route('/hotels', methods=['GET', 'POST', 'OPTIONS'])
+@hotel.route('/hotels', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def findhotels():
     if request.method == "OPTIONS": # CORS preflight
         return _build_cors_preflight_response()    
-    print(request.data)
+    # print(request.data)
     print("inside hotels")
-    #data= Hotels.query.order_by(Hotels.id).first()
-    #print(data)
+    args = request.args
+    city= args.to_dict()["CityName"]
+    city_id= City.query.filter_by(name=city).first().id
+    print(city_id)
+    
+    # hotels= Hotels.query.filter_by(city= city_id).all().order_by(asc(Hotels.price))
+    # hotels1= Hotels.query.filter_by(city= city_id).all().order_by(asc(Hotels.distancefromairport))
+    # hotels2= Hotels.query.filter_by(city= city_id).all().order_by(asc(Hotels.distancefromrailways))
 
-    # data= {
-    #     "Hotels": data.name
-    # }
+    # print(hotels)
+    # print(hotels1)
+    # print(hotels2)
 
-    # print(jsonify(data))
-
-    # response = Response( status=200)
-    # return response
-    # print(jsonify(data)
+    # print(CityName)
 
     try:
+        print("here1")
         response = Response( status=200)
+        print("here2")
         return _corsify_actual_response(response)
     except:
+        print("here3")
         response = Response(status=404)
         return _corsify_actual_response(response)      
 

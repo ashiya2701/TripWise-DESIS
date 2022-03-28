@@ -10,6 +10,7 @@ import Itinerary from './components/Itinerary';
 import CreateGroup from './components/create_group'
 import ListGroups from './components/list_groups'
 import Group from './components/group';
+import Hotels from './components/hotels'
 
 function App() {
 return (
@@ -24,6 +25,7 @@ return (
 		<Route path='/CreateGroup' element={<CreateGroup/>} />
 		<Route path='/ListGroups' element={<ListGroups/>} />
 		<Route path='/group' element={<Group/>} />
+		<Route path='/hotel' element={<Hotels/>} />
 	</Routes>
 	</Router>
 );
