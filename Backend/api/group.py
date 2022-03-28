@@ -102,7 +102,6 @@ def listGroups():
 
 
 # Todo: check if the person is a member of the group
-# @group.route('/group/', defaults={'id': 1})
 @group.route('/group/<int:id>', methods=['GET', 'OPTIONS'])
 @cross_origin()
 def groupDetails(id=None):
@@ -113,13 +112,16 @@ def groupDetails(id=None):
     print("here")
 
     headers= request.headers
-
          
     try:
         user= check_token(headers.get("access_token"))
         user_id= User.query.filter_by(username= user).first().id
 
         print("here2: ", user_id)
+
+        if UserGroups.query.filter_by(user=user_id, group= id).first() is None:
+            print("you cannot access this group")
+            raise
 
         group_details= Group.query.filter_by(id= id).first()
 

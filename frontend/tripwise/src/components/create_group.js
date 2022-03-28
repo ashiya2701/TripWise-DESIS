@@ -42,7 +42,6 @@ class CreateGroup extends Component{
                 </Form.Field>
 
                 <Form.Field>
-
                     <Dropdown
                         placeholder='Members'
                         options={this.state.users}
