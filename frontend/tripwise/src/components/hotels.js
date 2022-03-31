@@ -17,8 +17,12 @@ class Hotels extends Component{
     {
         super(props);
         this.state = { 
-            // name:"",
-            // answer:[]
+            name:"",
+            hotelsPrice:[],
+            hotelsDistanceFromAirport:[],
+            hotelsDistanceFromRailways:[],
+            hotelsTimeFromAirport:[],
+            hotelsTimeFromRailways:[]
         };
     }
 
@@ -31,26 +35,27 @@ class Hotels extends Component{
 
             <div>
 
-            {/* <Form onSubmit={event => this.handleSubmit(event)} >
+            <Form onSubmit={event => this.handleSubmit(event)} >
                 <Form.Field >
                     <Input type="text" value={this.state.name} onChange={event => this.HandlenameChange(event)} placeholder="city name" required />
                 </Form.Field>
 
-                <Button type="submit" color="black">Generate Itinerary</Button>
+                <Button type="submit" color="black">Give Hotel Suggestion</Button>
             </Form>
 
             <div>
 
-            {this.state.answer.map((place) => {
-                return(
-                    <div key= {place[0]}>
-                        
-                        Name: {place[1]}
-                        &nbsp;
-                        x-coordinate: {place[2]}
-                        &nbsp;
-                        y-coordinate: {place[3]}
+            Price:
 
+            {this.state.hotelsPrice.map((hotel) => {
+                return(
+                    <div key= {hotel.id}>
+                    Name: {hotel.name} &nbsp; &nbsp;
+                    Price: {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
+                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
+                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
+                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
 
 
                     </div>
@@ -59,7 +64,106 @@ class Hotels extends Component{
             })
             
             }
-            </div> */}
+
+
+            <br/>
+            <br/>
+            <br/>
+            Distance From Airport:
+
+
+            {this.state.hotelsDistanceFromAirport.map((hotel) => {
+                return(
+                    <div key= {hotel.id}>
+                    Name: {hotel.name} &nbsp; &nbsp;
+                    Price: {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
+                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
+                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
+                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
+
+
+                    </div>
+                );
+
+            })
+            
+            }
+
+            <br/>
+            <br/>
+            <br/>
+
+            Distance From Railways:
+
+            {this.state.hotelsDistanceFromRailways.map((hotel) => {
+                return(
+                    <div key= {hotel.id}>
+                    Name: {hotel.name} &nbsp; &nbsp;
+                    Price: {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
+                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
+                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
+                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
+
+
+                    </div>
+                );
+
+            })
+            
+            }
+
+            <br/>
+            <br/>
+            <br/>
+
+            Time from Airport:
+
+            {this.state.hotelsTimeFromAirport.map((hotel) => {
+                return(
+                    <div key= {hotel.id}>
+                    Name: {hotel.name} &nbsp; &nbsp;
+                    Price: {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
+                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
+                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
+                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
+
+
+                    </div>
+                );
+
+            })
+            
+            }
+
+            <br/>
+            <br/>
+            <br/>
+
+            Time from Railways:
+
+
+            {this.state.hotelsTimeFromRailways.map((hotel) => {
+                return(
+                    <div key= {hotel.id}>
+                    Name: {hotel.name} &nbsp; &nbsp;
+                    Price: {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
+                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
+                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
+                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
+
+
+                    </div>
+                );
+
+            })
+            
+            }
+            </div>
+            
             </div> 
         );
     }
@@ -75,39 +179,11 @@ class Hotels extends Component{
     async handleSubmit(event){
 
         event.preventDefault();
-      
-        let formData = { 
-            cityName: this.state.name 
-        }
 
-        console.log(formData);
-
-        const response= await axios(
-            {url: 'http://localhost:5000/generate_itinerary' ,
-            method:'POST', 
-            data: formData
-            }
-        )
-        .then(        
-        
-        )
-        .catch(err => {
-            
-        })
-        console.log(response)
-        console.log(response.data)
-
-        this.setState({
-            answer: response.data
-        });
-        
-    }
-    
-    async componentDidMount(){
         console.log("abc")
 
         const response= await axios(
-            {url: 'http://localhost:5000/hotels?CityName=Delhi' ,
+            {url: 'http://localhost:5000/hotels?CityName='+this.state.name ,
             method:'GET',
             }
         )
@@ -116,6 +192,21 @@ class Hotels extends Component{
         .catch(err => {
             
         })
+
+        console.log(response.data)
+
+        this.setState({
+            hotelsPrice:response.data.price,
+            hotelsDistanceFromAirport:response.data.distancefromairport,
+            hotelsDistanceFromRailways:response.data.distancefromrailways,
+            hotelsTimeFromAirport:response.data.timefromairport,
+            hotelsTimeFromRailways:response.data.timefromrailways,
+        })
+        
+    }
+    
+    async componentDidMount(){
+        
 
 
     }
