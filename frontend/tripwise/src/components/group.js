@@ -116,7 +116,7 @@ class Group extends Component{
             {this.state.expense_logs.map((expense) => {
                 return(
                     <div key={expense.id}>
-                        <br/><br/>
+                        <br/>
                         amount: &nbsp; {expense.amount} &nbsp; &nbsp;
                         description: &nbsp;{expense.description} &nbsp; &nbsp;
                         paid by: &nbsp;{expense.paid_by.name} &nbsp; &nbsp;

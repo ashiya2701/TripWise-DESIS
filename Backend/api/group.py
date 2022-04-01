@@ -148,10 +148,14 @@ def groupDetails(id=None):
 
         result['group_details']= data
         
+        print("before all expense logs")
         result['expense_logs'] = get_expense_logs(id)
+        print("after all expense logs")
         result['user_final_log'] = get_user_final_log(id,user_id)
-
+        print("after user_final_log")
+        print(result['user_final_log'])
         print(result)
+        print("before return")
         response = Response(json.dumps(result),status=200)
     except:
         print("here3")
