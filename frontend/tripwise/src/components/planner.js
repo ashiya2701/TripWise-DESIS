@@ -3,20 +3,21 @@ import { render } from '@testing-library/react';
 import { Redirect } from 'react-router-dom';
 // import { Component } from 'react/cjs/react.production.min';
 import { useLocation } from 'react-router-dom';
+import { CookiesProvider, withCookies, Cookies} from 'react-cookie'
 import axios from 'axios';
-import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-ui-react';
+import {Button, Form , Input,} from 'semantic-ui-react'
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
 const cookies = new Cookies();
 
-class planner extends Component{
+class Planner extends Component{
     constructor(props)
     {
         super(props);
         this.state = { 
-            src:"",
+            source:"",
             dest:"",
             answer: []
         };
@@ -32,28 +33,30 @@ class planner extends Component{
             <div>
             <Form onSubmit={event => this.handleSubmit(event)} >
             <Form.Field >
-            <Input type="text" value={this.state.src} onChange={event => this.HandleSrcChange(event)} placeholder="Src" required />
+            <Input type="text" value={this.state.source} onChange={event => this.HandlesourceChange(event)} placeholder="source" required />
             </Form.Field>
             <Form.Field >
-            <Input type="text" value={this.state.dest} onChange={event => this.HandleDestChange(event)} placeholder="Dest" required />
+            <Input type="text" value={this.state.dest} onChange={event => this.HandledestChange(event)} placeholder="dest" required />
             </Form.Field>
                         
             <Button type="submit" color="black">Find Best Route</Button>
             </Form>
-            
+          
             <div>
 
-            {this.state.answer.map((route) => {
+            {this.state.answer.map((y) => {
                 return(
-                    <div key= {route[0]}>
-                        
-                        Name: {route[1]}
+                    <div key= {y[0]}>
+                        Total Time: {y[0]}
                         &nbsp;
-                        x-coordinate: {route[2]}
+                        Fastest Route: {y[1]}
                         &nbsp;
-                        y-coordinate: {route[3]}
+                        Total Price : {y[2]}
+                        &nbsp;
+                        Cheapest Route: {y[1]}
 
 
+                       
 
                     </div>
                 );
@@ -67,32 +70,37 @@ class planner extends Component{
         );
     }
       
-    async HandleSrcChange(event){
+    async HandlesourceChange(event){
         this.setState({
-            src: event.target.value
+            source: event.target.value
+           // console.log(source);
         });
+        
 
     }
-    async HandleDestChange(event){
+    async HandledestChange(event){
         this.setState({
             dest: event.target.value
+          
         });
+      //  console.log(dest);
 
     }
+    
 
     async handleSubmit(event){
 
         event.preventDefault();
 
-        let data= {"src": this.state.src, "dest": this.state.dest} 
+        // let formData= {"source": this.state.source, "dest": this.state.dest} 
         
 
-        console.log(formData);
+        // console.log(formData);
         const response= await axios(
-            {url: 'http://localhost:5000/planner' ,
+            {url: 'http://localhost:5000/generate_plan?source='+this.state.source+'&dest='+this.state.dest,
             method:'GET', 
         // mode: "no-cors",S
-            data: FormData
+           // data: formData
             }
         )
         .then( 
@@ -117,6 +125,20 @@ class planner extends Component{
   
     
     async componentDidMount(){
+        console.log("abc")
+
+        // const response= await axios(
+        //     {url: 'http://localhost:5000/generate_plan?source=Delhi&dest=Mumbai',
+        //     method:'POST',
+        //     }
+        // )
+        // .then(        
+        // )
+        // .catch(err => {
+        //     console.log(err)
+            
+        // })
+        // console.log(response.data)
        
         
     }
@@ -125,4 +147,4 @@ class planner extends Component{
 
 
 
-export default planner;
+export default Planner;

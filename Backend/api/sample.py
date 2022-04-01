@@ -57,7 +57,7 @@ def sampleCheckData():
         ['Delhi','Hyderabad',1.25,3599],
         ['Delhi','Banglore',1.05,3599],
         ['Delhi','Kolkata',0.40,2599],
-        ['Delhi','Guwahati',0.40,2599],
+        ['Delhi','Guwahati',1.40,2599],
         ['Delhi','Surat',0.55,3599],
         ['Delhi','Ahemdabad',0.55,4599],
         ['Delhi','Patna',0.35,3599],
