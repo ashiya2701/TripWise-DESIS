@@ -49,6 +49,7 @@ class Trains(db.Model):
         
 class Hotels(db.Model):
         id=db.Column(db.Integer, primary_key=True)
+        name= db.Column(db.String(150))
         city=db.Column(db.Integer, ForeignKey(City.id))
         price =db.Column(db.Integer)
         distancefromairport =db.Column(db.Integer) 

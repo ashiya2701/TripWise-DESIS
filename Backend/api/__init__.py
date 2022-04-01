@@ -32,6 +32,7 @@ def create_app():
     from expense_logs import expense_logs
     from hotel import hotel
     from sample import sample
+    from populateHotels import populateHotels
 
     app.register_blueprint(cities, url_prefix='/')
     app.register_blueprint(auth, url_prefix='/')
@@ -41,6 +42,8 @@ def create_app():
     app.register_blueprint(hotel, url_prefix='/')    
     app.register_blueprint(sample, url_prefix='/')
     app.register_blueprint(expense_logs, url_prefix='/')
+    app.register_blueprint(populateHotels, url_prefix='/')
+
 
     create_database(app)
 

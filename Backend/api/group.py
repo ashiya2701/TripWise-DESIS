@@ -101,12 +101,6 @@ def listGroups():
     return _corsify_actual_response(response)         
 
 
-# @group.route('/graph/<str:src/<str:dest>', methods=['GET', 'OPTIONS'])
-# @cross_origin()
-# def groupDetails(src=None, dest= None):
-#     pass
-
-
 # Todo: check if the person is a member of the group
 @group.route('/group/<int:id>', methods=['GET', 'OPTIONS'])
 @cross_origin()

@@ -59,6 +59,11 @@ class Group extends Component{
                     })
                 }
 
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
             <Form onSubmit={event => this.handleSubmit(event)} >
 
                 <Form.Field >
@@ -82,6 +87,34 @@ class Group extends Component{
 
                 <Button color="black">Create new transaction</Button>
             </Form>
+
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+
+            {this.state.expense_logs.map((expense) => {
+                return(
+                    <div key={expense.id}>
+                        <br/><br/><br/><br/>
+                        amount: &nbsp; {expense.amount} &nbsp; &nbsp;
+                        description: &nbsp;{expense.description} &nbsp; &nbsp;
+                        paid by: &nbsp;{expense.paid_by.name} &nbsp; &nbsp;
+                        paid for: &nbsp;
+                        {expense.paid_for.map((user)=>{
+                            return(
+                                <span key= {user.id}>
+                                   
+                                    {user.name},
+                                                                    
+                                </span>
+                            );
+
+                        })}
+                    </div>
+                );
+                })
+            }
 
             </div> 
         );
