@@ -61,6 +61,27 @@ class Group extends Component{
 
             <br/>
             <br/>
+
+            {/* <div key= {log[0]}>
+                        
+                {log[2]} has to pay {log[1]} an amount of {log[3]}
+            </div> */}
+
+            
+
+            {this.state.user_final_logs.map((log) => {
+
+                return(
+                        <div key={log.id}>
+                        {log.from} has to pay {log.to} an amount of {log.amount}.
+                        </div>
+
+                    );
+                })
+            }
+
+
+
             <br/>
             <br/>
 
@@ -90,13 +111,12 @@ class Group extends Component{
 
             <br/>
             <br/>
-            <br/>
-            <br/>
+            
 
             {this.state.expense_logs.map((expense) => {
                 return(
                     <div key={expense.id}>
-                        <br/><br/><br/><br/>
+                        <br/><br/>
                         amount: &nbsp; {expense.amount} &nbsp; &nbsp;
                         description: &nbsp;{expense.description} &nbsp; &nbsp;
                         paid by: &nbsp;{expense.paid_by.name} &nbsp; &nbsp;
@@ -206,8 +226,16 @@ class Group extends Component{
         })
 
         this.setState({
-            user_final_log: response.data.user_final_log
+            user_final_logs: response.data.user_final_log
         })
+
+        console.log(response.data.user_final_log)
+
+        console.log(this.state.user_final_logs)
+
+        console.log(this.state.expense_logs)
+        
+
 
 
         let user_list= []
