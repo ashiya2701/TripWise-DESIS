@@ -11,6 +11,9 @@ import CreateGroup from './components/create_group'
 import ListGroups from './components/list_groups'
 import Group from './components/group';
 import Hotels from './components/hotels'
+import Planner from './components/planner';
+
+// /home/ishu/Desktop/desis/project/TripWise-DESIS/frontend/tripwise/src/components/Signup1.js
 
 function App() {
 return (
@@ -26,6 +29,7 @@ return (
 		<Route path='/ListGroups' element={<ListGroups/>} />
 		<Route path='/group' element={<Group/>} />
 		<Route path='/hotel' element={<Hotels/>} />
+		<Route path='/generate_plan' element={<Planner/>} />
 	</Routes>
 	</Router>
 );
