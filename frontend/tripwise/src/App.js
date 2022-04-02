@@ -11,12 +11,15 @@ import CreateGroup from './components/create_group'
 import ListGroups from './components/list_groups'
 import Group from './components/group';
 import Hotels from './components/hotels'
+import Landing from './components/Landing';
+import TripPLanning from './components/TripPlanning'
 
 function App() {
 return (
 	<Router>
 	<Routes>
-
+		<Route path='/' element={<Landing/>} />
+		<Route path='/TripPlanning' element={<TripPLanning/>}/>
 		<Route path='/Signup1' element={<Signup1/>} />
 		<Route path='/login' element={<Login/>} />
 		<Route path='/logout' element={<Logout/>} />

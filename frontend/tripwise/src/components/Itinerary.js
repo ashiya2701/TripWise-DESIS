@@ -27,17 +27,12 @@ class Itinerary extends Component{
     }
 
     render(){
+        this.props.submit&&this.generateItinerary(this.props.city);
         return(
 
             <div>
 
-            <Form onSubmit={event => this.handleSubmit(event)} >
-                <Form.Field >
-                    <Input type="text" value={this.state.name} onChange={event => this.HandlenameChange(event)} placeholder="city name" required />
-                </Form.Field>
-
-                <Button type="submit" color="black">Generate Itinerary</Button>
-            </Form>
+            <h3>Itinerary</h3>
 
             <div>
 
@@ -72,12 +67,10 @@ class Itinerary extends Component{
     }
 
 
-    async handleSubmit(event){
-
-        event.preventDefault();
+    async generateItinerary(city){
       
         let formData = { 
-            cityName: this.state.name 
+            cityName: city
         }
 
         console.log(formData);
