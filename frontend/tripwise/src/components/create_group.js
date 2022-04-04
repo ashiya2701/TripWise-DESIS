@@ -85,8 +85,6 @@ class CreateGroup extends Component{
     }
 
     async handleSubmit(event){
-
-        event.preventDefault();
       
         let formData = { 
             groupName: this.state.name,
@@ -116,6 +114,7 @@ class CreateGroup extends Component{
             answer: response.data
         });
         
+        window.location.reload(false);
     }
     
     async componentDidMount(){

@@ -27,7 +27,9 @@ class Itinerary extends Component{
     }
 
     render(){
-        this.props.submit&&this.generateItinerary(this.props.city);
+        if(this.props.submit){
+            this.generateItinerary(this.props.city);
+        }
         return(
 
             <div>

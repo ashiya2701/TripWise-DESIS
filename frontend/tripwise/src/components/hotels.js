@@ -33,7 +33,10 @@ class Hotels extends Component{
     
 
     render(){
-        this.props.submit&&this.getHotelSuggestions(this.props.city);
+        console.log(this.props.submit);
+        if(this.props.submit){
+            this.getHotelSuggestions(this.props.city);
+        }
         return(
 
             <div>

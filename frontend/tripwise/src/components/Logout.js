@@ -72,6 +72,8 @@ class Logout extends Component{
         // cookies.set('token_splitwise', response.data, { path: '/' });
 
         console.log(cookies.get('token_splitwise'));
+
+
     }
     
     async componentDidMount(){

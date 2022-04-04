@@ -3,16 +3,17 @@ import {Button, Form , Input} from 'semantic-ui-react';
 import Hotels from "./hotels";
 import Itinerary from "./Itinerary";
 
-function Landing(){
+function TripPlanning(){
     const [city,setCity] = React.useState("");
     const [submit,setSubmit] = React.useState(false);
     function handleChange(e){
         setCity(e.target.value);
-        setSubmit(false);
     }
     function handleSubmit(e){
         e.preventDefault();
         setSubmit(true);
+        console.log(submit);
+        
     }
     return (
         <div>
@@ -24,7 +25,7 @@ function Landing(){
 
                 <Button type="submit" color="black">Plan Trip!</Button>
             </Form>
-
+            
             <Hotels city={city} submit={submit}/>
             <Itinerary city={city} submit={submit}/>
         </div>
@@ -32,4 +33,4 @@ function Landing(){
     );
 }
 
-export default Landing;
+export default TripPlanning;

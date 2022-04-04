@@ -9,7 +9,7 @@ import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
-class Signup1 extends Component{
+class Signup extends Component{
     constructor(props)
     {
         super(props);
@@ -31,20 +31,20 @@ class Signup1 extends Component{
 
             <div>
             <Form onSubmit={event => this.handleSubmit(event)} >
-<Form.Field >
-<Input type="text" value={this.state.name} onChange={event => this.HandleNameChange(event)} placeholder="Name" required />
-</Form.Field>
-<Form.Field >
-<Input type="email" value={this.state.email} onChange={event => this.HandleemailChange(event)} placeholder="email" required /></Form.Field>
-<Form.Field >
-<Input type="text" value={this.state.username} onChange={event => this.HandleusernameChange(event)} placeholder="Username" required /></Form.Field>
-<Form.Field >
-<Input type="text" value={this.state.phone} onChange={event => this.HandlephoneChange(event)} placeholder="phone" required /></Form.Field>
-<Form.Field >
-<Input type="password" value={this.state.password} onChange={event => this.HandlepasswordChange(event)} placeholder="password" required />
-</Form.Field> 
-            
-<Button type="submit" color="black">Signup</Button>
+                <Form.Field >
+                <Input type="text" value={this.state.name} onChange={event => this.HandleNameChange(event)} placeholder="Name" required />
+                </Form.Field>
+                <Form.Field >
+                <Input type="email" value={this.state.email} onChange={event => this.HandleemailChange(event)} placeholder="email" required /></Form.Field>
+                <Form.Field >
+                <Input type="text" value={this.state.username} onChange={event => this.HandleusernameChange(event)} placeholder="Username" required /></Form.Field>
+                <Form.Field >
+                <Input type="text" value={this.state.phone} onChange={event => this.HandlephoneChange(event)} placeholder="phone" required /></Form.Field>
+                <Form.Field >
+                <Input type="password" value={this.state.password} onChange={event => this.HandlepasswordChange(event)} placeholder="password" required />
+                </Form.Field> 
+                            
+                <Button type="submit" color="black">Signup</Button>
             </Form>
             </div>
         
@@ -130,4 +130,4 @@ class Signup1 extends Component{
 
 
 
-export default Signup1;
+export default Signup;

@@ -1,10 +1,20 @@
 import React from "react";
 import { Link } from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
+import axios from 'axios';
+import Cookies from 'universal-cookie';
 
+axios.defaults.xsrfCookieName = 'csrftoken'
+axios.defaults.xsrfHeaderName = 'X-CSRFToken'
+
+const cookies = new Cookies();
 function Landing(){
     return (
         <div>
-            <Link to='/TripPlanning' > Plan your trip </Link>
+            <h1>TripWise</h1>
+            <Button color="black"><Link to='/TripPlanning' > Plan your trip </Link></Button>
+            <Button color="black"><Link to='/Splitwise' > Create Trip Group </Link></Button>
+            {cookies.get('token_splitwise')===undefined||cookies.get('token_splitwise').length===0? <Button color="black"><Link to='/LoginSignUp' > Login/SignUp </Link></Button> : <Button color="black"><Link to='/Logout' > Logout </Link></Button>}
         </div>
         
     );
