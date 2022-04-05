@@ -37,8 +37,13 @@ npm start
 
 cd Backend/api
 
-7. 
-
-8. Run Flask App
+7. Run Flask App
 
 python3 main.py
+
+8. To populate data run these three endpoints
+
+localhost:5000/sample_check_data
+localhost:5000/populate_HotelData
+localhost:5000/populate_placeData
+
