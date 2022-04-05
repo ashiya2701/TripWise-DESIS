@@ -30,19 +30,15 @@ class Hotels extends Component{
        
     }
 
+    
+
     render(){
         return(
 
             <div>
 
-            <Form onSubmit={event => this.handleSubmit(event)} >
-                <Form.Field >
-                    <Input type="text" value={this.state.name} onChange={event => this.HandlenameChange(event)} placeholder="city name" required />
-                </Form.Field>
-
-                <Button type="submit" color="black">Give Hotel Suggestion</Button>
-            </Form>
-
+            <h3>Hotel Suggestion</h3>
+            <Button type="submit" color="black" onClick={()=>this.getHotelSuggestions(this.props.city)}>Give Hotel Suggestion</Button>
             <div>
 
             Price:
@@ -176,14 +172,13 @@ class Hotels extends Component{
     }
 
 
-    async handleSubmit(event){
+    async getHotelSuggestions(city){
 
-        event.preventDefault();
 
         console.log("abc")
 
         const response= await axios(
-            {url: 'http://localhost:5000/hotels?CityName='+this.state.name ,
+            {url: 'http://localhost:5000/hotels?CityName='+city,
             method:'GET',
             }
         )

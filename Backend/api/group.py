@@ -54,12 +54,17 @@ def listMembers():
 @cross_origin()
 def listGroups():
 
+    print("request")
+
     if request.method == "OPTIONS": # CORS preflight
         return _build_cors_preflight_response()
     headers= request.headers        
     try:
+        print("here--0!")
         creator= check_token(headers.get("access_token"))
+        print("here-0!")
         creator_id= User.query.filter_by(username= creator).first().id
+        print("here0!")
         user_groups_creator= UserGroups.query.filter_by(user= creator_id).all()
         result=[]
         print("here1!")

@@ -6,6 +6,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-ui-react';
 import Cookies from 'universal-cookie';
+import { Link } from 'react-router-dom';
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
@@ -31,7 +32,7 @@ class Logout extends Component{
 
             <div>
             <Form onSubmit={event => this.handleSubmit(event)} >
-                <Button type="submit" color="black">Logout</Button>
+            <Button type="submit" color="black"> Logout </Button>
             </Form>
             </div>
         
@@ -72,6 +73,8 @@ class Logout extends Component{
         // cookies.set('token_splitwise', response.data, { path: '/' });
 
         console.log(cookies.get('token_splitwise'));
+
+
     }
     
     async componentDidMount(){

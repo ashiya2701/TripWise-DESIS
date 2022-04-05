@@ -129,6 +129,7 @@ class Group extends Component{
                 return(
                     <div key={expense.id}>
                         
+                        <br/>
                         amount: &nbsp; {expense.amount} &nbsp; &nbsp;
                         description: &nbsp;{expense.description} &nbsp; &nbsp;
                         paid by: &nbsp;{expense.paid_by.name} &nbsp; &nbsp;
@@ -207,7 +208,8 @@ class Group extends Component{
         })
         console.log(response)
         console.log(response.data)
-    
+        
+        window.location.reload(false);
     }
     
     async componentDidMount(){

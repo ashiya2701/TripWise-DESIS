@@ -27,6 +27,7 @@ class Login extends Component{
     }
 
     render(){
+        
         return(
 
             <div>
@@ -36,7 +37,7 @@ class Login extends Component{
                 <Input type="text" value={this.state.username} onChange={event => this.HandleusernameChange(event)} placeholder="Username" required /></Form.Field>
 
                 <Form.Field >
-                <Input type="password" value={this.state.password} onChange={event => this.HandlepasswordChange(event)} placeholder="password" required />
+                <Input type="password" value={this.state.password} onChange={event => this.HandlepasswordChange(event)} placeholder="Password" required />
                 </Form.Field> 
                             
                 <Button type="submit" color="black">Login</Button>
@@ -77,7 +78,7 @@ class Login extends Component{
         console.log(response)
         console.log(response.data)
 
-        cookies.set('token_splitwise', response.data, { path: '/' });
+        cookies.set('token_splitwise', response.data , { path: '/' });
 
         console.log(cookies.get('token_splitwise'));
     }

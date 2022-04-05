@@ -3,7 +3,7 @@ import axios from 'axios';
 import {Button, Form , Modal, Icon, Input, Card, Feed} from 'semantic-ui-react';
 import { Dropdown } from 'semantic-ui-react'
 import Cookies from 'universal-cookie';
-
+import {Link} from 'react-router-dom';
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
 
@@ -55,7 +55,7 @@ class ListGroups extends Component{
                     <br/>
                     <br/>
 
-                    <Button type="submit" color="black" onClick={() => this.openGroup(group.id)}>Check in</Button>
+                    <Button type="submit" color="black"><Link to={"/Group?id="+group.id}>Check in</Link></Button>
                                     
                     </div>
                 );
@@ -89,8 +89,11 @@ class ListGroups extends Component{
         .catch(err => {
             
         })
-
-        // console.log(response) 
+        
+        if(response===undefined||response.status!=200){
+            alert("Couldn't fetch your data, either you are not logged in or an error occured");
+        }
+        console.log(response) 
         this.setState({
             groups: response.data
 
