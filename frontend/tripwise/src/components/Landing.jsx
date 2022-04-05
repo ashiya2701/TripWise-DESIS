@@ -14,7 +14,7 @@ function Landing(){
             <h1>TripWise</h1>
             <Button color="black"><Link to='/TripPlanning' > Plan your trip </Link></Button>
             <Button color="black"><Link to='/Splitwise' > Create Trip Group </Link></Button>
-            {cookies.get('token_splitwise')===undefined||cookies.get('token_splitwise').length===0? <Button color="black"><Link to='/LoginSignUp' > Login/SignUp </Link></Button> : <Button color="black"><Link to='/Logout' > Logout </Link></Button>}
+            <Button color="black"><Link to='/LoginSignUp' > Login/SignUp </Link></Button>
         </div>
         
     );

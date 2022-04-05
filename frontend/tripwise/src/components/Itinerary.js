@@ -27,15 +27,12 @@ class Itinerary extends Component{
     }
 
     render(){
-        if(this.props.submit){
-            this.generateItinerary(this.props.city);
-        }
         return(
 
             <div>
 
             <h3>Itinerary</h3>
-
+            <Button type="submit" color="black" onClick={()=>this.generateItinerary(this.props.city)}>Generate Itinerary</Button>
             <div>
 
             {this.state.answer.map((place) => {

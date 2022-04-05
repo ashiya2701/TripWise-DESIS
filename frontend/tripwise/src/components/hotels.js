@@ -33,16 +33,12 @@ class Hotels extends Component{
     
 
     render(){
-        console.log(this.props.submit);
-        if(this.props.submit){
-            this.getHotelSuggestions(this.props.city);
-        }
         return(
 
             <div>
 
             <h3>Hotel Suggestion</h3>
-            
+            <Button type="submit" color="black" onClick={()=>this.getHotelSuggestions(this.props.city)}>Give Hotel Suggestion</Button>
             <div>
 
             Price:

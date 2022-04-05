@@ -14,15 +14,6 @@ const cookies = new Cookies();
 
 function Splitwise(){
 
-    if(cookies.get('token_splitwise')===undefined||cookies.get('token_splitwise').length===0){
-        return (
-            <div>
-                <Button color="black"><Link to='/LoginSignUp' > Login/SignUp </Link></Button>
-            </div>
-            
-        );
-    }else{
-
     return (
         <div>
             <CreateGroup/>
@@ -31,7 +22,6 @@ function Splitwise(){
         </div>
         
     );
-    }
 }
 
 export default Splitwise;

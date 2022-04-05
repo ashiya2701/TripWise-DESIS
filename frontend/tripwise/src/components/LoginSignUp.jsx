@@ -28,8 +28,6 @@ const LoginSignUp = () => {
             <Signup/>
         </Grid.Column>
         </Grid>
-
-        
     </Segment>
 )}
 

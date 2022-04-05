@@ -193,7 +193,8 @@ class Group extends Component{
         })
         console.log(response)
         console.log(response.data)
-    
+        
+        window.location.reload(false);
     }
     
     async componentDidMount(){

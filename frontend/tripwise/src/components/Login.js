@@ -81,7 +81,6 @@ class Login extends Component{
         cookies.set('token_splitwise', response.data , { path: '/' });
 
         console.log(cookies.get('token_splitwise'));
-        window.location.reload(false);
     }
     
     async HandleusernameChange(event){
