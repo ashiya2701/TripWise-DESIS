@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import axios from 'axios';
 import {Button, Form , Modal, Icon, Input, Card, Feed} from 'semantic-ui-react';
-import { Dropdown } from 'semantic-ui-react'
+import { Dropdown, Header } from 'semantic-ui-react'
 import Cookies from 'universal-cookie';
 // import { useLocation } from 'react-router-dom';
 
@@ -41,9 +41,20 @@ class Group extends Component{
 
             <div>
 
+                <Header as='h1'>
                 Group name: {this.state.group_details.name} &nbsp;
+
+                </Header>
+
+                <Header as='h3'>
+
                 Group description: {this.state.group_details.desc} &nbsp;
-                <br/>
+                    
+                </Header>
+
+                
+                
+                
 
                 Members:
 
@@ -59,31 +70,30 @@ class Group extends Component{
                     })
                 }
 
-            <br/>
-            <br/>
 
             {/* <div key= {log[0]}>
                         
                 {log[2]} has to pay {log[1]} an amount of {log[3]}
             </div> */}
 
-            
+            <Header as='h4'>
 
             {this.state.user_final_logs.map((log) => {
 
-                return(
-                        <div key={log.id}>
-                        {log.from} has to pay {log.to} an amount of {log.amount}.
-                        </div>
+            return(
+                    <div key={log.id}>
+                    {log.from} has to pay {log.to} an amount of {log.amount}.
+                    </div>
 
-                    );
-                })
+                );
+            })
             }
 
 
+            </Header>
 
-            <br/>
-            <br/>
+       
+            <Header as='h5'> Add expenses paid by you here:</Header>
 
             <Form onSubmit={event => this.handleSubmit(event)} >
 
@@ -98,7 +108,7 @@ class Group extends Component{
                 <Form.Field>
 
                     <Dropdown
-                        placeholder='Members'
+                        placeholder='paid for'
                         options={this.state.user_list}
                         fluid multiple selection
                         onChange={(event,data) =>this.handleGroupMemberChange(event , data)
@@ -109,14 +119,16 @@ class Group extends Component{
                 <Button color="black">Create new transaction</Button>
             </Form>
 
+            
             <br/>
-            <br/>
+
+            <Header as='h4'>Expense Logs:</Header>
             
 
             {this.state.expense_logs.map((expense) => {
                 return(
                     <div key={expense.id}>
-                        <br/>
+                        
                         amount: &nbsp; {expense.amount} &nbsp; &nbsp;
                         description: &nbsp;{expense.description} &nbsp; &nbsp;
                         paid by: &nbsp;{expense.paid_by.name} &nbsp; &nbsp;
@@ -131,6 +143,8 @@ class Group extends Component{
                             );
 
                         })}
+
+                        <br/>
                     </div>
                 );
                 })
