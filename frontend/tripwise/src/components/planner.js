@@ -3,7 +3,8 @@ import { render } from '@testing-library/react';
 import { Redirect } from 'react-router-dom';
 // import { Component } from 'react/cjs/react.production.min';
 import { useLocation } from 'react-router-dom';
-import { CookiesProvider, withCookies, Cookies} from 'react-cookie'
+// import { CookiesProvider, withCookies, Cookies} from 'react-cookie'
+import Cookies from 'universal-cookie';
 import axios from 'axios';
 import {Button, Form , Input,} from 'semantic-ui-react'
 
