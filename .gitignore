@@ -2,3 +2,4 @@
 **/Backend/api/__pycache__/*
 **/Backend/api/database.db
 **/Backend/api/temp.py
+**/__pycache__/*

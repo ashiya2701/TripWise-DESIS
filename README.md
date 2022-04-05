@@ -25,6 +25,8 @@ cd frontend/tripwise
 
 npm i
 
+3.  Inside node_modules>semantic-ui-css folder>semantic.min.css file , ctrl + f and search for ;; and remove 1 semicolon.
+
 4. Run React App
 
 npm start

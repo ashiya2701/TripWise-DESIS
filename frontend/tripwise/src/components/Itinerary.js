@@ -23,7 +23,13 @@ class Itinerary extends Component{
             <h3>Itinerary</h3>
             <Button type="submit" color="black" onClick={()=>this.generateItinerary(this.props.destination)}>Generate Itinerary</Button>
             <div>
-
+            <div>Airport(0,0)
+            <br/>
+            |
+            <br/>
+            v  
+            </div>
+            
             {this.state.answer.map((place) => {
                 return(
                     <div key= {place[0]}>
@@ -44,6 +50,7 @@ class Itinerary extends Component{
             })
             
             }
+            <div>Airport</div>
             </div>
             </div> 
         );
