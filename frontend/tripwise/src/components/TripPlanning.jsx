@@ -1,5 +1,5 @@
 import React from "react";
-import {Button, Form , Input} from 'semantic-ui-react';
+import {Input} from 'semantic-ui-react';
 import Hotels from "./hotels";
 import Itinerary from "./Itinerary";
 import Planner from "./planner";
@@ -18,8 +18,9 @@ function TripPlanning(){
             <h1>Trip Planning</h1>
             <Input type="text" value={source} onChange={handleSrcChange} placeholder="Enter Source (E.g. Delhi)" required />
             <Input type="text" value={destination} onChange={handleDestChange} placeholder="Enter Destination (E.g. Delhi)" required />
-            <Planner source = {source} destination={destination}/>
-            <Hotels destination={destination} />
+            <hr/>
+            <Planner source = {source} destination={destination}/><hr/>
+            <Hotels destination={destination} /><hr/>
             <Itinerary destination={destination}/>
         </div>
         

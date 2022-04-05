@@ -1,17 +1,6 @@
 import React, {Component} from 'react';
-import { render } from '@testing-library/react';
-import { Redirect } from 'react-router-dom';
-// import { Component } from 'react/cjs/react.production.min';
-import { useLocation } from 'react-router-dom';
-// import { CookiesProvider, withCookies, Cookies} from 'react-cookie'
-import Cookies from 'universal-cookie';
+import {Button} from 'semantic-ui-react'
 import axios from 'axios';
-import {Button, Form , Input,} from 'semantic-ui-react'
-
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
-const cookies = new Cookies();
 
 class Planner extends Component{
     constructor(props)
@@ -38,16 +27,17 @@ class Planner extends Component{
             {this.state.answer.map((y) => {
                 return(
                     <div key= {y[0]}>
-                        Total Time: {y[0]}
+                        Fastest Route: 
+                        {this.convertToRoute(y[1])}
+                        &nbsp;,
+                        Total Time: {y[0]} hr
                         &nbsp;
-                        Fastest Route: {y[1]}
-                        &nbsp;
-                        Total Price : {y[2]}
-                        &nbsp;
-                        Cheapest Route: {y[1]}
-
-
-                       
+                        <br/>
+                        Cheapest Route: 
+                        {this.convertToRoute(y[1])}
+                        &nbsp;,   
+                        Total Price : Rs. {y[2]}
+                        &nbsp;                   
 
                     </div>
                 );
@@ -61,6 +51,13 @@ class Planner extends Component{
         );
     } 
     
+    convertToRoute(y){
+        var s = ""; 
+        for(var i=0;i<y.length-1;i++)
+            s+=y[i][1]+" - >";
+        s+=y[y[1].length-1][1];
+        return s;
+    }
 
     async handleSubmit(event){
 

@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
-import { render } from '@testing-library/react';
-import { Redirect } from 'react-router-dom';
-// import { Component } from 'react/cjs/react.production.min';
-import { useLocation } from 'react-router-dom';
+import {Button} from 'semantic-ui-react';
 import axios from 'axios';
-import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-ui-react';
-import Cookies from 'universal-cookie';
-
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
-const cookies = new Cookies();
 
 class Itinerary extends Component{
     constructor(props)
@@ -38,13 +28,15 @@ class Itinerary extends Component{
                 return(
                     <div key= {place[0]}>
                         
-                        Name: {place[1]}
+                        {place[1]}
                         &nbsp;
-                        x-coordinate: {place[2]}
-                        &nbsp;
-                        y-coordinate: {place[3]}
-
-
+                        ({place[2]}
+                        &nbsp;,
+                        {place[3]})
+                        <br/>
+                        |
+                        <br/>
+                        v        
 
                     </div>
                 );

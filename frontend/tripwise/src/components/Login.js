@@ -1,10 +1,6 @@
 import React, {Component} from 'react';
-import { render } from '@testing-library/react';
-import { Redirect } from 'react-router-dom';
-// import { Component } from 'react/cjs/react.production.min';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-ui-react';
+import {Button, Form, Input} from 'semantic-ui-react';
 import Cookies from 'universal-cookie';
 
 axios.defaults.xsrfCookieName = 'csrftoken'

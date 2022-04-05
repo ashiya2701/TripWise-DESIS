@@ -1,16 +1,6 @@
 import React, {Component} from 'react';
-import { render } from '@testing-library/react';
-import { Redirect } from 'react-router-dom';
-// import { Component } from 'react/cjs/react.production.min';
-import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import {Button, Form , Modal, Icon, Dropdown, Input, Card, Feed} from 'semantic-ui-react';
-import Cookies from 'universal-cookie';
-
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
-const cookies = new Cookies();
+import {Button} from 'semantic-ui-react';
 
 class Hotels extends Component{
     constructor(props)
@@ -46,13 +36,11 @@ class Hotels extends Component{
                 return(
                     <div key= {hotel.id}>
                     Name: {hotel.name} &nbsp; &nbsp;
-                    Price: {hotel.price} &nbsp; &nbsp;
-                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
-                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
-                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
-                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
-
-
+                    Price: Rs. {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} km &nbsp; &nbsp; 
+                    Distance From Railways: {hotel.distancefromrailways} km &nbsp; &nbsp; 
+                    Time from Airport: {hotel.timefromairport} hr &nbsp; &nbsp; 
+                    Time from Railways: {hotel.timefromrailways} hr &nbsp; &nbsp; 
                     </div>
                 );
 
@@ -71,13 +59,11 @@ class Hotels extends Component{
                 return(
                     <div key= {hotel.id}>
                     Name: {hotel.name} &nbsp; &nbsp;
-                    Price: {hotel.price} &nbsp; &nbsp;
-                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
-                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
-                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
-                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
-
-
+                    Price: Rs. {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} km &nbsp; &nbsp; 
+                    Distance From Railways: {hotel.distancefromrailways} km &nbsp; &nbsp; 
+                    Time from Airport: {hotel.timefromairport} hr &nbsp; &nbsp; 
+                    Time from Railways: {hotel.timefromrailways} hr &nbsp; &nbsp; 
                     </div>
                 );
 
@@ -95,13 +81,11 @@ class Hotels extends Component{
                 return(
                     <div key= {hotel.id}>
                     Name: {hotel.name} &nbsp; &nbsp;
-                    Price: {hotel.price} &nbsp; &nbsp;
-                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
-                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
-                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
-                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
-
-
+                    Price: Rs. {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} km &nbsp; &nbsp; 
+                    Distance From Railways: {hotel.distancefromrailways} km &nbsp; &nbsp; 
+                    Time from Airport: {hotel.timefromairport} hr &nbsp; &nbsp; 
+                    Time from Railways: {hotel.timefromrailways} hr &nbsp; &nbsp; 
                     </div>
                 );
 
@@ -119,13 +103,11 @@ class Hotels extends Component{
                 return(
                     <div key= {hotel.id}>
                     Name: {hotel.name} &nbsp; &nbsp;
-                    Price: {hotel.price} &nbsp; &nbsp;
-                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
-                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
-                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
-                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
-
-
+                    Price: Rs. {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} km &nbsp; &nbsp; 
+                    Distance From Railways: {hotel.distancefromrailways} km &nbsp; &nbsp; 
+                    Time from Airport: {hotel.timefromairport} hr &nbsp; &nbsp; 
+                    Time from Railways: {hotel.timefromrailways} hr &nbsp; &nbsp; 
                     </div>
                 );
 
@@ -144,13 +126,11 @@ class Hotels extends Component{
                 return(
                     <div key= {hotel.id}>
                     Name: {hotel.name} &nbsp; &nbsp;
-                    Price: {hotel.price} &nbsp; &nbsp;
-                    Distance From Airport: {hotel.distancefromairport} &nbsp; &nbsp;
-                    Distance From Railways: {hotel.distancefromrailways} &nbsp; &nbsp;
-                    Time from Airport: {hotel.timefromairport} &nbsp; &nbsp;
-                    Time from Railways: {hotel.timefromrailways} &nbsp; &nbsp;
-
-
+                    Price: Rs. {hotel.price} &nbsp; &nbsp;
+                    Distance From Airport: {hotel.distancefromairport} km &nbsp; &nbsp; 
+                    Distance From Railways: {hotel.distancefromrailways} km &nbsp; &nbsp; 
+                    Time from Airport: {hotel.timefromairport} hr &nbsp; &nbsp; 
+                    Time from Railways: {hotel.timefromrailways} hr &nbsp; &nbsp; 
                     </div>
                 );
 

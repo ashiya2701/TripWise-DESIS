@@ -1,13 +1,7 @@
 import React from "react";
 import { Link } from 'react-router-dom';
 import {Button} from 'semantic-ui-react';
-import axios from 'axios';
-import Cookies from 'universal-cookie';
 
-axios.defaults.xsrfCookieName = 'csrftoken'
-axios.defaults.xsrfHeaderName = 'X-CSRFToken'
-
-const cookies = new Cookies();
 function Landing(){
     return (
         <div>

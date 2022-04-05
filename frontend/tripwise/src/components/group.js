@@ -1,9 +1,8 @@
 import React, {Component} from 'react';
 import axios from 'axios';
-import {Button, Form , Modal, Icon, Input, Card, Feed} from 'semantic-ui-react';
+import {Button, Form , Input} from 'semantic-ui-react';
 import { Dropdown, Header } from 'semantic-ui-react'
 import Cookies from 'universal-cookie';
-// import { useLocation } from 'react-router-dom';
 
 axios.defaults.xsrfCookieName = 'csrftoken'
 axios.defaults.xsrfHeaderName = 'X-CSRFToken'
