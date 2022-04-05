@@ -47,13 +47,22 @@ class Planner extends Component{
             {this.state.answer.map((y) => {
                 return(
                     <div key= {y[0]}>
-                        Total Time: {y[0]}
+                        Total Time for fastest route(minutes): {y[0]}
                         &nbsp;
+                       
                         Fastest Route: {y[1]}
                         &nbsp;
-                        Total Price : {y[2]}
+                        Total Price for fastest route(INR) : {y[2]}
                         &nbsp;
-                        Cheapest Route: {y[1]}
+                        
+                        Total Price for cheapest route(INR) : {y[3]}
+                        &nbsp;
+                        Cheapest Route: {y[4]}
+                        &nbsp;
+                        Total Time for cheapest route(minutes): {y[5]}
+                        &nbsp;
+                        
+                        
 
 
                        

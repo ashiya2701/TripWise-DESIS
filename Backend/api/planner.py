@@ -145,11 +145,31 @@ def generate_plan():
         city_details=City.query.filter_by(id=least[y]).first()
         temp2=[city_details.id,city_details.name]
         plan2.append(temp2)    
-    print(plan2)   
+    print(plan2) 
+    price=0
+    for y in range(len(plan)-1):
+        srcc=plan[y][0]
+        destt=plan[y+1][0]
+        flight=Flight.query.filter_by(src=srcc, dest=destt).first()
+        price+=flight.price
+    duration=0
+    for y in range(len(plan2)-1):
+        srcc=plan2[y][0]
+        destt=plan2[y+1][0]
+        flight=Flight.query.filter_by(src=srcc, dest=destt).first()
+        duration+=flight.dur
+    citiesarray1=[]
+    citiesarray2=[]
+    for y in range(len(plan)):
+        citiesarray1.append(plan[y][1])
+        citiesarray1.append("->")
+    for y in range(len(plan2)):
+         citiesarray2.append(plan2[y][1])
+         citiesarray2.append("->")        
     tt=path[len(path)-1]
     tp=least[len(least)-1]
     answer=[]
-    tempv=[tt,plan,tp,plan2]
+    tempv=[tt,citiesarray1,price,tp,citiesarray1,duration]
     answer.append(tempv)
     response = Response(json.dumps(answer),status=200)
     #response.headers.add('Access-Control-Allow-Origin', '*')
