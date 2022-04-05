@@ -2,3 +2,30 @@
 **/Backend/api/__pycache__/*
 **/Backend/api/database.db
 **/Backend/api/temp.py
+**/__pycache__/*
+
+
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# dependencies
+**/frontend/tripwise/node_modules
+**/frontend/tripwise/.pnp
+**/frontend/tripwise/.pnp.js
+
+# testing
+**/frontend/tripwise/coverage
+
+# production
+**/frontend/tripwise/build
+
+# misc
+**/frontend/tripwise/.DS_Store
+**/frontend/tripwise/.env.local
+**/frontend/tripwise/.env.development.local
+**/frontend/tripwise/.env.test.local
+**/frontend/tripwise/.env.production.local
+
+**/frontend/tripwise/npm-debug.log*
+**/frontend/tripwise/yarn-debug.log*
+**/frontend/tripwise/yarn-error.log*
+
