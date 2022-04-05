@@ -13,7 +13,7 @@ function Landing(){
         <div>
             <h1>TripWise</h1>
             <Button color="black"><Link to='/TripPlanning' > Plan your trip </Link></Button>
-            <Button color="black"><Link to='/Splitwise' > Create Trip Group </Link></Button>
+            <Button color="black"><Link to='/Splitwise' > Go to Dashboard </Link></Button>
             <Button color="black"><Link to='/LoginSignUp' > Login/SignUp </Link></Button>
         </div>
         

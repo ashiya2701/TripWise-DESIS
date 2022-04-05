@@ -17,7 +17,6 @@ class Hotels extends Component{
     {
         super(props);
         this.state = { 
-            name:"",
             hotelsPrice:[],
             hotelsDistanceFromAirport:[],
             hotelsDistanceFromRailways:[],
@@ -38,7 +37,7 @@ class Hotels extends Component{
             <div>
 
             <h3>Hotel Suggestion</h3>
-            <Button type="submit" color="black" onClick={()=>this.getHotelSuggestions(this.props.city)}>Give Hotel Suggestion</Button>
+            <Button type="submit" color="black" onClick={()=>this.getHotelSuggestions(this.props.destination)}>Give Hotel Suggestion</Button>
             <div>
 
             Price:
@@ -163,14 +162,6 @@ class Hotels extends Component{
             </div> 
         );
     }
-
-    async HandlenameChange(event){
-        this.setState({
-            name: event.target.value
-        });
-
-    }
-
 
     async getHotelSuggestions(city){
 

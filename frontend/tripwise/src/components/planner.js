@@ -18,8 +18,6 @@ class Planner extends Component{
     {
         super(props);
         this.state = { 
-            source:"",
-            dest:"",
             answer: []
         };
     }
@@ -32,17 +30,9 @@ class Planner extends Component{
         return(
 
             <div>
-            <Form onSubmit={event => this.handleSubmit(event)} >
-            <Form.Field >
-            <Input type="text" value={this.state.source} onChange={event => this.HandlesourceChange(event)} placeholder="source" required />
-            </Form.Field>
-            <Form.Field >
-            <Input type="text" value={this.state.dest} onChange={event => this.HandledestChange(event)} placeholder="dest" required />
-            </Form.Field>
-                        
-            <Button type="submit" color="black">Find Best Route</Button>
-            </Form>
-          
+            <h3>Flight Suggestion</h3>
+            <Button type="submit" color="black" onClick={()=>this.handleSubmit()}>Find Best Route</Button>
+    
             <div>
 
             {this.state.answer.map((y) => {
@@ -69,36 +59,17 @@ class Planner extends Component{
             </div>
            
         );
-    }
-      
-    async HandlesourceChange(event){
-        this.setState({
-            source: event.target.value
-           // console.log(source);
-        });
-        
-
-    }
-    async HandledestChange(event){
-        this.setState({
-            dest: event.target.value
-          
-        });
-      //  console.log(dest);
-
-    }
+    } 
     
 
     async handleSubmit(event){
-
-        event.preventDefault();
 
         // let formData= {"source": this.state.source, "dest": this.state.dest} 
         
 
         // console.log(formData);
         const response= await axios(
-            {url: 'http://localhost:5000/generate_plan?source='+this.state.source+'&dest='+this.state.dest,
+            {url: 'http://localhost:5000/generate_plan?source='+this.props.source+'&dest='+this.props.destination,
             method:'GET', 
         // mode: "no-cors",S
            // data: formData

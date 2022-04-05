@@ -17,7 +17,6 @@ class Itinerary extends Component{
     {
         super(props);
         this.state = { 
-            name:"",
             answer:[]
         };
     }
@@ -32,7 +31,7 @@ class Itinerary extends Component{
             <div>
 
             <h3>Itinerary</h3>
-            <Button type="submit" color="black" onClick={()=>this.generateItinerary(this.props.city)}>Generate Itinerary</Button>
+            <Button type="submit" color="black" onClick={()=>this.generateItinerary(this.props.destination)}>Generate Itinerary</Button>
             <div>
 
             {this.state.answer.map((place) => {
@@ -57,14 +56,6 @@ class Itinerary extends Component{
             </div> 
         );
     }
-
-    async HandlenameChange(event){
-        this.setState({
-            name: event.target.value
-        });
-
-    }
-
 
     async generateItinerary(city){
       
