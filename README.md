@@ -36,6 +36,7 @@ Tripwise is a complete trip planner with an expense distributor during the trip 
     - localhost:5000/sample_check_data
     - localhost:5000/populate_HotelData
     - localhost:5000/populate_placeDatap
+9.Latest version of app in branch 'Merged'.    
 
 ## Authors
 1. Ishu Gupta
