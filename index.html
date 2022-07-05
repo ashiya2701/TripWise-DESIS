@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input id="email" type="text">
+    <input id="username" type="text">
+    <input id="name" type="text">
+    <input id="password" type="text">
+    <input id="phoneNumber" type="text">
+    <button id="btn">SignUp</button>
+    <button id="btn1">check_cookies</button>
+    <script>
+
+
+    // document.getElementById("btn").addEventListener("click",()=>
+    //     fetch('http://localhost:5000/sign-up',{
+    //         mode: "no-cors",
+    //         headers:{
+    //             "content-type" : "application/json; charset=UTF-8"
+    //         },
+    //         body:JSON.stringify({
+    //             email: document.getElementById("email").value,
+    //             username: document.getElementById("username").value,
+    //             name: document.getElementById("name").value,
+    //             password:document.getElementById("password").value,
+    //             phone_number:document.getElementById("phoneNumber").value
+    //         }),
+    //         method: "POST"
+    //     })
+    //     )
+
+        document.getElementById("btn").addEventListener("click",async ()=>{
+            let res= await fetch('http://localhost:5000/sample',{
+            mode: "no-cors",
+            headers:{
+                "content-type" : "application/json; charset=UTF-8"
+            },
+            body:JSON.stringify({
+                // email: document.getElementById("email").value,
+                username: document.getElementById("username").value,
+                // name: document.getElementById("name").value,
+                password:document.getElementById("password").value,
+                // phone_number:document.getElementById("phoneNumber").value
+                // access_token:"ishu1218" 
+            }),
+            method: "POST"
+        }).then( async response=> {
+            // response.headers.forEach(console.log)
+            // console.log(...response.headers)
+            console.log(response.text())
+            // console.log(response.json())
+
+            let data= await response.text()
+
+            console.log(data)
+
+        })
+        // .then(data => console.log(data));
+
+        // console.log(res)
+
+        }
+    
+        )
+
+        // document.getElementById("btn1").addEventListener("click",()=>{
+        //     console.log("here")
+        //     console.log(document.cookie)
+        // }
+        // )
+
+
+
+
+        // var params = JSON.stringify({
+        //     username: document.getElementById("username").value,
+        //     password:document.getElementById("password").value
+        // })
+        // var xhttp = new XMLHttpRequest();
+        // xhttp.onreadystatechange = function() {
+        //     if (this.readyState == 4 && this.status == 200) {
+        //         console.log(this)         
+        //     }
+        // };
+        // xhttp.open("POST", "http://localhost:5000/login", true);
+        // xhttp.send(params);
+
+        
+    </script>
+</body>
+</html>

@@ -1,4 +1,51 @@
 # TripWise-DESIS
+
+## Installation Guide
+
+Pre-requisites - 
+
+1. Python installed
+2. Node installed
+
+Steps 
+
+1. Open 2 terminals
+
+2. Clone the repository at desired location.
+
+git clone https://github.com/ashiya2701/TripWise-DESIS.git
+
+3. Navigate to frontend folder
+
+cd frontend/tripwise
+
+3. Install dependencies
+
+npm i
+
+3.  Inside node_modules>semantic-ui-css folder>semantic.min.css file , ctrl + f and search for ;; and remove 1 semicolon.
+
+4. Run React App
+
+npm start
+
+5. Open another terminal
+
+6. Navigate to backend folder
+
+cd Backend/api
+
+7. Run Flask App
+
+python3 main.py
+
+8. To populate data run these three endpoints
+
+localhost:5000/sample_check_data
+localhost:5000/populate_HotelData
+localhost:5000/populate_placeData
+
+=======
 ## Summary
 Tripwise is a complete trip planner with an expense distributor during the trip which handles the trip smoothly between a group. Our web app suggests the fastest and the cheapest flight option, reasonable hotel suggestions which are in the vicinity of arrival or departure mediums, a well planned itinerary to visit all the major tourist attractions in the best possible way. The user can also create trip groups to manage splitting of expenses between the co-travelers. We wish to improve the features, populate more data and scale the application.
 
